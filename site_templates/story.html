@@ -43,29 +43,30 @@
         font-weight: 500;
     }
 
-    .intro {
-        display: flex;
-        align-items: flex-start;
-        gap: 48px;
-        margin-bottom: 48px;
-    }
-
     .photo {
+        float: left;
         width: 160px;
         height: 160px;
         border-radius: 50%;
         object-fit: cover;
         object-position: top;
-        flex-shrink: 0;
         border: 2px solid var(--border);
+        margin: 6px 36px 24px 0;
+    }
+
+    .bio::after {
+        content: "";
+        display: table;
+        clear: both;
     }
 
     .stats {
         display: flex;
         gap: 40px;
-        margin-top: 60px;
-        padding-top: 48px;
+        margin-top: 48px;
+        padding-top: 40px;
         border-top: 1px solid var(--border);
+        clear: both;
     }
 
     .stat {
@@ -92,16 +93,15 @@
 <h1>From Medical Writing<br>to Sales Engineering</h1>
 <div class="divider"></div>
 
-<div class="intro">
+<div class="bio">
     <img src="{{ url_for('static', filename='zac.png') }}" alt="Zac de Moor" class="photo">
-    <div class="bio">
         <p>
             I spent several years as a <span class="highlight">medical writer for large enterprise pharma companies</span>,
             shaping content strategy and go-to-market paths for new drugs and treatments. The role involved
             constant collaboration with subject matter experts and senior stakeholders—and I loved that side of it.
         </p>
         <p>
-            But over time I realised the work had become too solitary, and I wanted something that sat at
+            But over time I realized the work had become too solitary, and I wanted something that sat at
             <span class="highlight">the intersection of interpersonal communication and technical storytelling</span>.
         </p>
         <p>
@@ -111,7 +111,6 @@
             <span class="highlight">AI-powered tools from scratch</span>—including this site.
             I'm beyond excited to bring these skills into a real role.
         </p>
-    </div>
 </div>
 
 <div class="stats">
