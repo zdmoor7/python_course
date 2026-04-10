@@ -1,0 +1,1 @@
+Just tested claude code and cursor. Cursor was good for the writing of the code but claude code was better for actually building the application. Could see claude code being better for that practical aspect but also need to be careful that the prompts have the necessary context to be successful. 
