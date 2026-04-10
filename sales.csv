@@ -1,0 +1,13 @@
+month,product,units_sold,revenue
+January,Widget A,120,2400
+January,Widget B,85,3400
+February,Widget A,140,2800
+February,Widget B,60,2400
+March,Widget A,95,1900
+March,Widget B,110,4400
+April,Widget A,200,4000
+April,Widget B,75,3000
+May,Widget A,160,3200
+May,Widget B,130,5200
+June,Widget A,180,3600
+June,Widget B,90,3600

@@ -1,1 +1,3 @@
 Just tested claude code and cursor. Cursor was good for the writing of the code but claude code was better for actually building the application. Could see claude code being better for that practical aspect but also need to be careful that the prompts have the necessary context to be successful. 
+
+Just finished making a file tht reads and analyses csv files which get sent to claude. Was quick and easy with claude code.
