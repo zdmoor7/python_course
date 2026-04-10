@@ -11,7 +11,8 @@ app = Flask(__name__,
             template_folder=os.path.join(base_dir, "insulin_templates"),
             static_folder=os.path.join(base_dir, "insulin_static"))
 
-client = AnthropicClient(api_key=os.getenv("ANTHROPIC_API_KEY"))
+def get_client():
+    return AnthropicClient(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 @app.route("/")
 def index():
@@ -35,7 +36,7 @@ Return ONLY a valid JSON array with no explanation, in this exact format:
 Use accurate, commonly accepted carb values per 100g. Be realistic with portion sizes — e.g. "a few dates" = 3-4 dates (~30g each), "some peanut butter" = 2 tablespoons (~32g). Only return the JSON array, nothing else."""
 
     try:
-        response = client.send_message(prompt)
+        response = get_client().send_message(prompt)
         # Strip markdown code fences if present
         cleaned = response.strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip()
         items = json.loads(cleaned)
