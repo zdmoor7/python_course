@@ -21,8 +21,8 @@
             --muted: #888;
             --accent: #7c6af7;
             --accent-dim: rgba(124, 106, 247, 0.15);
-            --danger: #f87171;
             --success: #34d399;
+            --danger: #f87171;
         }
 
         body {
@@ -30,22 +30,13 @@
             color: var(--text);
             font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
             min-height: 100vh;
-            padding: 24px 20px 48px;
+            padding: 24px 20px 60px;
             max-width: 480px;
             margin: 0 auto;
         }
 
-        h1 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .subtitle {
-            font-size: 0.82rem;
-            color: var(--muted);
-            margin-bottom: 28px;
-        }
+        h1 { font-size: 1.4rem; font-weight: 600; margin-bottom: 4px; }
+        .subtitle { font-size: 0.82rem; color: var(--muted); margin-bottom: 28px; }
 
         .card {
             background: var(--card);
@@ -63,13 +54,8 @@
             margin-bottom: 16px;
         }
 
-        .field {
-            margin-bottom: 16px;
-        }
-
-        .field:last-child {
-            margin-bottom: 0;
-        }
+        .field { margin-bottom: 16px; }
+        .field:last-child { margin-bottom: 0; }
 
         label {
             display: block;
@@ -78,30 +64,207 @@
             margin-bottom: 8px;
         }
 
-        input[type="number"] {
+        input[type="number"], input[type="text"] {
             width: 100%;
             background: var(--bg);
             border: 1px solid var(--border);
             border-radius: 10px;
             padding: 14px 16px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--text);
             -webkit-appearance: none;
-            appearance: none;
         }
 
-        input[type="number"]:focus {
-            outline: none;
-            border-color: var(--accent);
+        input:focus { outline: none; border-color: var(--accent); }
+
+        .hint { font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
+
+        /* Search */
+        .search-row {
+            display: flex;
+            gap: 10px;
         }
 
-        .hint {
-            font-size: 0.75rem;
+        .search-row input { flex: 1; }
+
+        .search-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 0 18px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .search-btn:active { opacity: 0.8; }
+
+        .search-results {
+            margin-top: 12px;
+            display: none;
+        }
+
+        .search-result-item {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+        }
+
+        .search-result-item:last-child { border-bottom: none; }
+
+        .search-result-item:active { opacity: 0.7; }
+
+        .result-name {
+            font-size: 0.9rem;
+            color: var(--text);
+            margin-bottom: 2px;
+        }
+
+        .result-carbs {
+            font-size: 0.78rem;
             color: var(--muted);
-            margin-top: 6px;
         }
 
-        button {
+        .no-results {
+            font-size: 0.85rem;
+            color: var(--muted);
+            text-align: center;
+            padding: 16px 0;
+        }
+
+        .loading {
+            font-size: 0.85rem;
+            color: var(--muted);
+            text-align: center;
+            padding: 16px 0;
+            display: none;
+        }
+
+        /* Portion modal overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 10;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .overlay.open { display: flex; }
+
+        .modal {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px 20px 0 0;
+            padding: 28px 24px 40px;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .modal h3 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .modal .modal-carbs {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .modal-btn {
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        .modal-cancel {
+            width: 100%;
+            background: transparent;
+            color: var(--muted);
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 4px;
+        }
+
+        /* Meal list */
+        .meal-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .meal-item:last-child { border-bottom: none; }
+
+        .meal-name { color: var(--text); }
+        .meal-detail { font-size: 0.78rem; color: var(--muted); }
+
+        .meal-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .meal-carbs { color: var(--accent); font-weight: 500; }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 14px;
+            margin-top: 4px;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .total-carbs { color: var(--text); font-weight: 600; font-size: 1rem; }
+
+        .empty-meal {
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+            padding: 16px 0;
+        }
+
+        /* BG input */
+        .bg-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bg-row input { flex: 1; }
+        .bg-unit { color: var(--muted); font-size: 0.85rem; white-space: nowrap; }
+
+        /* Calculate button */
+        .calc-btn {
             width: 100%;
             background: var(--accent);
             color: white;
@@ -111,14 +274,13 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 8px;
+            margin-top: 4px;
             letter-spacing: 0.02em;
         }
 
-        button:active {
-            opacity: 0.85;
-        }
+        .calc-btn:active { opacity: 0.85; }
 
+        /* Result */
         .result {
             display: none;
             background: var(--accent-dim);
@@ -130,7 +292,7 @@
         }
 
         .result-label {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: var(--accent);
@@ -145,35 +307,20 @@
             margin-bottom: 6px;
         }
 
-        .result-unit {
-            font-size: 0.9rem;
-            color: var(--muted);
-            margin-bottom: 20px;
-        }
+        .result-unit { font-size: 0.9rem; color: var(--muted); margin-bottom: 20px; }
 
         .result-breakdown {
             font-size: 0.82rem;
             color: var(--muted);
-            line-height: 1.8;
+            line-height: 2;
             border-top: 1px solid var(--border);
             padding-top: 16px;
             text-align: left;
         }
 
-        .result-breakdown span {
-            color: var(--text);
-            float: right;
-        }
+        .result-breakdown span { color: var(--text); float: right; }
 
-        .disclaimer {
-            font-size: 0.72rem;
-            color: var(--muted);
-            text-align: center;
-            margin-top: 24px;
-            line-height: 1.6;
-            padding: 0 8px;
-        }
-
+        /* Settings */
         .settings-toggle {
             font-size: 0.8rem;
             color: var(--accent);
@@ -184,136 +331,290 @@
             text-underline-offset: 3px;
         }
 
-        .settings-card {
-            display: none;
-        }
+        .settings-card { display: none; }
+        .settings-card.open { display: block; }
 
-        .settings-card.open {
-            display: block;
+        .disclaimer {
+            font-size: 0.72rem;
+            color: var(--muted);
+            text-align: center;
+            margin-top: 24px;
+            line-height: 1.6;
+            padding: 0 8px;
         }
     </style>
 </head>
 <body>
 
-    <h1>Insulin Calculator</h1>
-    <p class="subtitle">For Type 1 Diabetes — mmol/L</p>
+<h1>Insulin Calculator</h1>
+<p class="subtitle">Type 1 Diabetes — mmol/L</p>
 
-    <!-- Settings -->
-    <div class="settings-toggle" onclick="toggleSettings()">⚙ My Settings</div>
-    <div class="card settings-card" id="settings">
-        <p class="card-title">Your Personal Ratios</p>
-        <div class="field">
-            <label>Insulin-to-Carb Ratio (ICR) — grams of carbs per 1 unit</label>
-            <input type="number" id="icr" placeholder="e.g. 10" step="0.5" inputmode="decimal">
-            <p class="hint">1 unit covers this many grams of carbs</p>
-        </div>
-        <div class="field">
-            <label>Correction Factor (ISF) — mmol/L drop per 1 unit</label>
-            <input type="number" id="isf" placeholder="e.g. 2.5" step="0.1" inputmode="decimal">
-            <p class="hint">1 unit drops your blood glucose by this amount</p>
-        </div>
-        <div class="field">
-            <label>Target Blood Glucose (mmol/L)</label>
-            <input type="number" id="target" placeholder="e.g. 6.0" step="0.1" inputmode="decimal">
-        </div>
+<!-- Settings -->
+<div class="settings-toggle" onclick="toggleSettings()">⚙ My Settings</div>
+<div class="card settings-card" id="settings">
+    <p class="card-title">Your Personal Ratios</p>
+    <div class="field">
+        <label>Insulin-to-Carb Ratio (ICR) — grams per 1 unit</label>
+        <input type="number" id="icr" placeholder="e.g. 10" step="0.5" inputmode="decimal">
+        <p class="hint">1 unit covers this many grams of carbs</p>
     </div>
-
-    <!-- Meal inputs -->
-    <div class="card">
-        <p class="card-title">This Meal</p>
-        <div class="field">
-            <label>Carbohydrates (grams)</label>
-            <input type="number" id="carbs" placeholder="e.g. 60" step="1" inputmode="decimal">
-        </div>
-        <div class="field">
-            <label>Current Blood Glucose (mmol/L)</label>
-            <input type="number" id="bg" placeholder="e.g. 7.4" step="0.1" inputmode="decimal">
-        </div>
+    <div class="field">
+        <label>Correction Factor (ISF) — mmol/L drop per 1 unit</label>
+        <input type="number" id="isf" placeholder="e.g. 2.5" step="0.1" inputmode="decimal">
     </div>
-
-    <button onclick="calculate()">Calculate Dose</button>
-
-    <!-- Result -->
-    <div class="result" id="result">
-        <p class="result-label">Suggested Dose</p>
-        <p class="result-dose" id="dose-display">—</p>
-        <p class="result-unit">units of insulin</p>
-        <div class="result-breakdown" id="breakdown"></div>
+    <div class="field">
+        <label>Target Blood Glucose (mmol/L)</label>
+        <input type="number" id="target" placeholder="e.g. 6.0" step="0.1" inputmode="decimal">
     </div>
+</div>
 
-    <p class="disclaimer">
-        This tool is a calculation aid only. Always use your own judgement and consult your diabetes care team. Do not rely solely on this app for dosing decisions.
-    </p>
+<!-- Food search -->
+<div class="card">
+    <p class="card-title">Add Food Items</p>
+    <div class="search-row">
+        <input type="text" id="search-input" placeholder="Search food (e.g. banana, bread)" inputmode="search">
+        <button class="search-btn" onclick="searchFood()">Search</button>
+    </div>
+    <div class="loading" id="loading">Searching...</div>
+    <div class="search-results" id="search-results"></div>
+</div>
 
-    <script>
-        // Load saved settings from localStorage
-        window.onload = function() {
-            ['icr', 'isf', 'target'].forEach(id => {
-                const saved = localStorage.getItem(id);
-                if (saved) document.getElementById(id).value = saved;
-            });
+<!-- Meal list -->
+<div class="card">
+    <p class="card-title">Your Meal</p>
+    <div id="meal-list">
+        <p class="empty-meal">No items added yet</p>
+    </div>
+    <div class="total-row" id="total-row" style="display:none">
+        <span>Total carbs</span>
+        <span class="total-carbs" id="total-carbs">0g</span>
+    </div>
+</div>
+
+<!-- Blood glucose -->
+<div class="card">
+    <p class="card-title">Current Blood Glucose</p>
+    <div class="bg-row">
+        <input type="number" id="bg" placeholder="e.g. 7.4" step="0.1" inputmode="decimal">
+        <span class="bg-unit">mmol/L</span>
+    </div>
+</div>
+
+<button class="calc-btn" onclick="calculate()">Calculate Dose</button>
+
+<!-- Result -->
+<div class="result" id="result">
+    <p class="result-label">Suggested Dose</p>
+    <p class="result-dose" id="dose-display">—</p>
+    <p class="result-unit">units of insulin</p>
+    <div class="result-breakdown" id="breakdown"></div>
+</div>
+
+<p class="disclaimer">
+    This tool is a calculation aid only. Always use your own judgement and consult your diabetes care team. Do not rely solely on this app for dosing decisions.
+</p>
+
+<!-- Portion modal -->
+<div class="overlay" id="overlay">
+    <div class="modal">
+        <h3 id="modal-food-name"></h3>
+        <p class="modal-carbs" id="modal-food-carbs"></p>
+        <div class="field">
+            <label>How many grams are you eating?</label>
+            <input type="number" id="modal-grams" placeholder="e.g. 150" step="1" inputmode="decimal">
+        </div>
+        <button class="modal-btn" onclick="confirmAdd()">Add to Meal</button>
+        <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+    </div>
+</div>
+
+<script>
+    let mealItems = [];
+    let pendingFood = null;
+
+    // Load settings
+    window.onload = () => {
+        ['icr', 'isf', 'target'].forEach(id => {
+            const saved = localStorage.getItem(id);
+            if (saved) document.getElementById(id).value = saved;
+        });
+        document.getElementById('search-input').addEventListener('keydown', e => {
+            if (e.key === 'Enter') searchFood();
+        });
+    };
+
+    function toggleSettings() {
+        document.getElementById('settings').classList.toggle('open');
+    }
+
+    async function searchFood() {
+        const query = document.getElementById('search-input').value.trim();
+        if (!query) return;
+
+        const resultsEl = document.getElementById('search-results');
+        const loadingEl = document.getElementById('loading');
+
+        resultsEl.style.display = 'none';
+        loadingEl.style.display = 'block';
+        resultsEl.innerHTML = '';
+
+        try {
+            const url = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(query)}&json=1&fields=product_name,nutriments&page_size=8&action=process`;
+            const res = await fetch(url);
+            const data = await res.json();
+
+            loadingEl.style.display = 'none';
+            resultsEl.style.display = 'block';
+
+            const products = (data.products || []).filter(p =>
+                p.product_name &&
+                p.nutriments &&
+                p.nutriments.carbohydrates_100g != null
+            );
+
+            if (products.length === 0) {
+                resultsEl.innerHTML = '<p class="no-results">No results found. Try a different search term.</p>';
+                return;
+            }
+
+            resultsEl.innerHTML = products.map((p, i) => `
+                <div class="search-result-item" onclick="selectFood(${i})">
+                    <div class="result-name">${p.product_name}</div>
+                    <div class="result-carbs">${p.nutriments.carbohydrates_100g.toFixed(1)}g carbs per 100g</div>
+                </div>
+            `).join('');
+
+            window._searchResults = products;
+
+        } catch (err) {
+            loadingEl.style.display = 'none';
+            resultsEl.style.display = 'block';
+            resultsEl.innerHTML = '<p class="no-results">Search failed. Check your connection and try again.</p>';
+        }
+    }
+
+    function selectFood(index) {
+        const food = window._searchResults[index];
+        pendingFood = {
+            name: food.product_name,
+            carbsPer100g: food.nutriments.carbohydrates_100g
         };
+        document.getElementById('modal-food-name').textContent = food.product_name;
+        document.getElementById('modal-food-carbs').textContent = `${food.nutriments.carbohydrates_100g.toFixed(1)}g carbs per 100g`;
+        document.getElementById('modal-grams').value = '';
+        document.getElementById('overlay').classList.add('open');
+    }
 
-        function toggleSettings() {
-            const card = document.getElementById('settings');
-            card.classList.toggle('open');
+    function confirmAdd() {
+        const grams = parseFloat(document.getElementById('modal-grams').value);
+        if (!grams || grams <= 0) {
+            alert('Please enter a valid weight in grams.');
+            return;
+        }
+        const carbs = (pendingFood.carbsPer100g * grams) / 100;
+        mealItems.push({ name: pendingFood.name, grams, carbs });
+        closeModal();
+        renderMeal();
+        document.getElementById('search-input').value = '';
+        document.getElementById('search-results').style.display = 'none';
+    }
+
+    function closeModal() {
+        document.getElementById('overlay').classList.remove('open');
+        pendingFood = null;
+    }
+
+    function removeItem(index) {
+        mealItems.splice(index, 1);
+        renderMeal();
+    }
+
+    function renderMeal() {
+        const listEl = document.getElementById('meal-list');
+        const totalEl = document.getElementById('total-row');
+        const totalCarbsEl = document.getElementById('total-carbs');
+
+        if (mealItems.length === 0) {
+            listEl.innerHTML = '<p class="empty-meal">No items added yet</p>';
+            totalEl.style.display = 'none';
+            return;
         }
 
-        function calculate() {
-            const icr    = parseFloat(document.getElementById('icr').value);
-            const isf    = parseFloat(document.getElementById('isf').value);
-            const target = parseFloat(document.getElementById('target').value);
-            const carbs  = parseFloat(document.getElementById('carbs').value);
-            const bg     = parseFloat(document.getElementById('bg').value);
+        const totalCarbs = mealItems.reduce((sum, item) => sum + item.carbs, 0);
 
-            if (!icr || !isf || !target) {
-                toggleSettings();
-                alert('Please fill in your personal ratios in Settings first.');
-                return;
-            }
-            if (!carbs || !bg) {
-                alert('Please enter your carbs and current blood glucose.');
-                return;
-            }
+        listEl.innerHTML = mealItems.map((item, i) => `
+            <div class="meal-item">
+                <div>
+                    <div class="meal-name">${item.name}</div>
+                    <div class="meal-detail">${item.grams}g</div>
+                </div>
+                <div class="meal-right">
+                    <span class="meal-carbs">${item.carbs.toFixed(1)}g carbs</span>
+                    <button class="remove-btn" onclick="removeItem(${i})">×</button>
+                </div>
+            </div>
+        `).join('');
 
-            // Save settings
-            localStorage.setItem('icr', icr);
-            localStorage.setItem('isf', isf);
-            localStorage.setItem('target', target);
+        totalEl.style.display = 'flex';
+        totalCarbsEl.textContent = `${totalCarbs.toFixed(1)}g`;
+    }
 
-            const mealDose       = carbs / icr;
-            const correctionDose = (bg - target) / isf;
-            const totalRaw       = mealDose + correctionDose;
-            const total          = Math.round(totalRaw * 2) / 2; // round to nearest 0.5
+    function calculate() {
+        const icr    = parseFloat(document.getElementById('icr').value);
+        const isf    = parseFloat(document.getElementById('isf').value);
+        const target = parseFloat(document.getElementById('target').value);
+        const bg     = parseFloat(document.getElementById('bg').value);
 
-            const resultEl    = document.getElementById('result');
-            const doseEl      = document.getElementById('dose-display');
-            const breakdownEl = document.getElementById('breakdown');
-
-            if (total <= 0) {
-                doseEl.textContent = '0';
-                breakdownEl.innerHTML = `
-                    <div>Meal dose <span>${mealDose.toFixed(1)} u</span></div>
-                    <div>Correction <span>${correctionDose.toFixed(1)} u</span></div>
-                    <div style="margin-top:8px;color:var(--success)">Your BG is below target — no correction needed.</div>
-                `;
-            } else {
-                doseEl.textContent = total % 1 === 0 ? total : total.toFixed(1);
-                breakdownEl.innerHTML = `
-                    <div>Meal dose (${carbs}g ÷ ${icr}) <span>${mealDose.toFixed(1)} u</span></div>
-                    <div>Correction ((${bg} − ${target}) ÷ ${isf}) <span>${correctionDose.toFixed(1)} u</span></div>
-                    <div>Total (rounded to 0.5) <span>${total % 1 === 0 ? total : total.toFixed(1)} u</span></div>
-                `;
-            }
-
-            resultEl.style.display = 'block';
+        if (!icr || !isf || !target) {
+            document.getElementById('settings').classList.add('open');
+            alert('Please fill in your personal ratios in Settings first.');
+            return;
         }
-    </script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js');
+        if (mealItems.length === 0) {
+            alert('Please add at least one food item.');
+            return;
         }
-    </script>
+        if (!bg) {
+            alert('Please enter your current blood glucose.');
+            return;
+        }
+
+        localStorage.setItem('icr', icr);
+        localStorage.setItem('isf', isf);
+        localStorage.setItem('target', target);
+
+        const totalCarbs     = mealItems.reduce((sum, item) => sum + item.carbs, 0);
+        const mealDose       = totalCarbs / icr;
+        const correctionDose = (bg - target) / isf;
+        const totalRaw       = mealDose + correctionDose;
+        const total          = Math.max(0, Math.round(totalRaw * 2) / 2);
+
+        const doseEl      = document.getElementById('dose-display');
+        const breakdownEl = document.getElementById('breakdown');
+        const resultEl    = document.getElementById('result');
+
+        doseEl.textContent = total % 1 === 0 ? total : total.toFixed(1);
+
+        const correctionNote = correctionDose < 0
+            ? `<div style="color:var(--success);margin-top:8px">BG below target — correction reduced dose</div>`
+            : '';
+
+        breakdownEl.innerHTML = `
+            <div>Total carbs <span>${totalCarbs.toFixed(1)}g</span></div>
+            <div>Meal dose (${totalCarbs.toFixed(1)}g ÷ ${icr}) <span>${mealDose.toFixed(1)} u</span></div>
+            <div>Correction ((${bg} − ${target}) ÷ ${isf}) <span>${correctionDose.toFixed(1)} u</span></div>
+            <div>Total (rounded to 0.5) <span>${total % 1 === 0 ? total : total.toFixed(1)} u</span></div>
+            ${correctionNote}
+        `;
+
+        resultEl.style.display = 'block';
+        resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js');
+    }
+</script>
 
 </body>
 </html>
