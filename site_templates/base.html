@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Zac de Moor{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0d0d0d;
+            --bg-card: #141414;
+            --border: #222;
+            --text: #e8e8e8;
+            --muted: #888;
+            --accent: #7c6af7;
+            --accent-dim: rgba(124, 106, 247, 0.12);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 60px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.02em;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+        }
+
+        main {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--muted);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a class="nav-name" href="/">Zac de Moor</a>
+        <ul class="nav-links">
+            <li><a href="/" class="{% if request.path == '/' %}active{% endif %}">My Story</a></li>
+            <li><a href="/projects" class="{% if request.path == '/projects' %}active{% endif %}">Projects</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        &copy; 2026 Zac de Moor
+    </footer>
+</body>
+</html>
