@@ -375,7 +375,7 @@
         <input type="text" id="search-input" placeholder="Search food (e.g. banana, bread)" inputmode="search">
         <button class="search-btn" onclick="searchFood()">Search</button>
     </div>
-    <div class="loading" id="loading">Searching...</div>
+    <div class="loading" id="loading">Searching online...</div>
     <div class="search-results" id="search-results"></div>
 </div>
 
@@ -428,11 +428,12 @@
     </div>
 </div>
 
+<script src="/insulin_static/foods.js"></script>
 <script>
     let mealItems = [];
     let pendingFood = null;
+    let currentResults = [];
 
-    // Load settings
     window.onload = () => {
         ['icr', 'isf', 'target'].forEach(id => {
             const saved = localStorage.getItem(id);
@@ -441,10 +442,39 @@
         document.getElementById('search-input').addEventListener('keydown', e => {
             if (e.key === 'Enter') searchFood();
         });
+        document.getElementById('search-input').addEventListener('input', e => {
+            searchLocal(e.target.value.trim());
+        });
     };
 
     function toggleSettings() {
         document.getElementById('settings').classList.toggle('open');
+    }
+
+    function searchLocal(query) {
+        const resultsEl = document.getElementById('search-results');
+        if (!query) { resultsEl.style.display = 'none'; return; }
+
+        const matches = COMMON_FOODS.filter(f =>
+            f.name.toLowerCase().includes(query.toLowerCase())
+        ).slice(0, 8);
+
+        currentResults = matches.map(f => ({ name: f.name, carbsPer100g: f.carbs }));
+
+        if (matches.length > 0) {
+            resultsEl.style.display = 'block';
+            resultsEl.innerHTML = matches.map((f, i) => `
+                <div class="search-result-item" onclick="selectFood(${i})">
+                    <div class="result-name">${f.name}</div>
+                    <div class="result-carbs">${f.carbs.toFixed(1)}g carbs per 100g</div>
+                </div>
+            `).join('') + `<div class="search-result-item" style="color:var(--muted);font-size:0.8rem" onclick="searchFood()">
+                Not here? Search online →
+            </div>`;
+        } else {
+            resultsEl.style.display = 'block';
+            resultsEl.innerHTML = `<div class="no-results">Not in common foods. <span style="color:var(--accent);cursor:pointer" onclick="searchFood()">Search online →</span></div>`;
+        }
     }
 
     async function searchFood() {
@@ -456,7 +486,6 @@
 
         resultsEl.style.display = 'none';
         loadingEl.style.display = 'block';
-        resultsEl.innerHTML = '';
 
         try {
             const url = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(query)}&json=1&fields=product_name,nutriments&page_size=8&action=process`;
@@ -477,14 +506,17 @@
                 return;
             }
 
-            resultsEl.innerHTML = products.map((p, i) => `
+            currentResults = products.map(p => ({
+                name: p.product_name,
+                carbsPer100g: p.nutriments.carbohydrates_100g
+            }));
+
+            resultsEl.innerHTML = currentResults.map((f, i) => `
                 <div class="search-result-item" onclick="selectFood(${i})">
-                    <div class="result-name">${p.product_name}</div>
-                    <div class="result-carbs">${p.nutriments.carbohydrates_100g.toFixed(1)}g carbs per 100g</div>
+                    <div class="result-name">${f.name}</div>
+                    <div class="result-carbs">${f.carbsPer100g.toFixed(1)}g carbs per 100g</div>
                 </div>
             `).join('');
-
-            window._searchResults = products;
 
         } catch (err) {
             loadingEl.style.display = 'none';
@@ -494,13 +526,10 @@
     }
 
     function selectFood(index) {
-        const food = window._searchResults[index];
-        pendingFood = {
-            name: food.product_name,
-            carbsPer100g: food.nutriments.carbohydrates_100g
-        };
-        document.getElementById('modal-food-name').textContent = food.product_name;
-        document.getElementById('modal-food-carbs').textContent = `${food.nutriments.carbohydrates_100g.toFixed(1)}g carbs per 100g`;
+        const food = currentResults[index];
+        pendingFood = food;
+        document.getElementById('modal-food-name').textContent = food.name;
+        document.getElementById('modal-food-carbs').textContent = `${food.carbsPer100g.toFixed(1)}g carbs per 100g`;
         document.getElementById('modal-grams').value = '';
         document.getElementById('overlay').classList.add('open');
     }
