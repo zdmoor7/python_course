@@ -22,7 +22,6 @@
             --accent: #7c6af7;
             --accent-dim: rgba(124, 106, 247, 0.15);
             --success: #34d399;
-            --danger: #f87171;
         }
 
         body {
@@ -57,14 +56,10 @@
         .field { margin-bottom: 16px; }
         .field:last-child { margin-bottom: 0; }
 
-        label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--muted);
-            margin-bottom: 8px;
-        }
+        label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 8px; }
+        .hint { font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
 
-        input[type="number"], input[type="text"] {
+        input[type="number"], textarea {
             width: 100%;
             background: var(--bg);
             border: 1px solid var(--border);
@@ -73,109 +68,18 @@
             font-size: 1rem;
             color: var(--text);
             -webkit-appearance: none;
+            font-family: inherit;
         }
 
-        input:focus { outline: none; border-color: var(--accent); }
-
-        .hint { font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
-
-        /* Search */
-        .search-row {
-            display: flex;
-            gap: 10px;
+        textarea {
+            resize: none;
+            height: 90px;
+            line-height: 1.5;
         }
 
-        .search-row input { flex: 1; }
+        input:focus, textarea:focus { outline: none; border-color: var(--accent); }
 
-        .search-btn {
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 0 18px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .search-btn:active { opacity: 0.8; }
-
-        .search-results {
-            margin-top: 12px;
-            display: none;
-        }
-
-        .search-result-item {
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-            cursor: pointer;
-        }
-
-        .search-result-item:last-child { border-bottom: none; }
-
-        .search-result-item:active { opacity: 0.7; }
-
-        .result-name {
-            font-size: 0.9rem;
-            color: var(--text);
-            margin-bottom: 2px;
-        }
-
-        .result-carbs {
-            font-size: 0.78rem;
-            color: var(--muted);
-        }
-
-        .no-results {
-            font-size: 0.85rem;
-            color: var(--muted);
-            text-align: center;
-            padding: 16px 0;
-        }
-
-        .loading {
-            font-size: 0.85rem;
-            color: var(--muted);
-            text-align: center;
-            padding: 16px 0;
-            display: none;
-        }
-
-        /* Portion modal overlay */
-        .overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 10;
-            align-items: flex-end;
-            justify-content: center;
-        }
-
-        .overlay.open { display: flex; }
-
-        .modal {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px 20px 0 0;
-            padding: 28px 24px 40px;
-            width: 100%;
-            max-width: 480px;
-        }
-
-        .modal h3 {
-            font-size: 1rem;
-            margin-bottom: 4px;
-        }
-
-        .modal .modal-carbs {
-            font-size: 0.8rem;
-            color: var(--muted);
-            margin-bottom: 20px;
-        }
-
-        .modal-btn {
+        .btn {
             width: 100%;
             background: var(--accent);
             color: white;
@@ -186,57 +90,31 @@
             font-weight: 600;
             cursor: pointer;
             margin-top: 12px;
+            letter-spacing: 0.02em;
         }
 
-        .modal-cancel {
-            width: 100%;
-            background: transparent;
-            color: var(--muted);
-            border: none;
-            border-radius: 12px;
-            padding: 12px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            margin-top: 4px;
-        }
+        .btn:active { opacity: 0.85; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* Meal list */
+        /* Parsed meal breakdown */
         .meal-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             padding: 10px 0;
             border-bottom: 1px solid var(--border);
             font-size: 0.9rem;
-        }
-
-        .meal-item:last-child { border-bottom: none; }
-
-        .meal-name { color: var(--text); }
-        .meal-detail { font-size: 0.78rem; color: var(--muted); }
-
-        .meal-right {
-            display: flex;
-            align-items: center;
             gap: 12px;
         }
 
-        .meal-carbs { color: var(--accent); font-weight: 500; }
-
-        .remove-btn {
-            background: none;
-            border: none;
-            color: var(--muted);
-            font-size: 1.1rem;
-            cursor: pointer;
-            padding: 0;
-            line-height: 1;
-        }
+        .meal-item:last-child { border-bottom: none; }
+        .meal-name { color: var(--text); }
+        .meal-detail { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+        .meal-carbs { color: var(--accent); font-weight: 500; white-space: nowrap; }
 
         .total-row {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             padding-top: 14px;
             margin-top: 4px;
             border-top: 1px solid var(--border);
@@ -246,39 +124,9 @@
 
         .total-carbs { color: var(--text); font-weight: 600; font-size: 1rem; }
 
-        .empty-meal {
-            text-align: center;
-            color: var(--muted);
-            font-size: 0.85rem;
-            padding: 16px 0;
-        }
-
-        /* BG input */
-        .bg-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
+        .bg-row { display: flex; align-items: center; gap: 12px; }
         .bg-row input { flex: 1; }
         .bg-unit { color: var(--muted); font-size: 0.85rem; white-space: nowrap; }
-
-        /* Calculate button */
-        .calc-btn {
-            width: 100%;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 18px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 4px;
-            letter-spacing: 0.02em;
-        }
-
-        .calc-btn:active { opacity: 0.85; }
 
         /* Result */
         .result {
@@ -334,6 +182,14 @@
         .settings-card { display: none; }
         .settings-card.open { display: block; }
 
+        .parsing-msg {
+            font-size: 0.85rem;
+            color: var(--muted);
+            text-align: center;
+            padding: 12px 0;
+            display: none;
+        }
+
         .disclaimer {
             font-size: 0.72rem;
             color: var(--muted);
@@ -368,82 +224,53 @@
     </div>
 </div>
 
-<!-- Food search -->
+<!-- Meal description -->
 <div class="card">
-    <p class="card-title">Add Food Items</p>
-    <div class="search-row">
-        <input type="text" id="search-input" placeholder="Search food (e.g. banana, bread)" inputmode="search">
-        <button class="search-btn" onclick="searchFood()">Search</button>
-    </div>
-    <div class="loading" id="loading">Searching online...</div>
-    <div class="search-results" id="search-results"></div>
+    <p class="card-title">What Are You Eating?</p>
+    <textarea id="meal-input" placeholder="e.g. two apples, a few dates, a banana and some peanut butter"></textarea>
+    <p class="parsing-msg" id="parsing-msg">Calculating carbs...</p>
+    <button class="btn" id="parse-btn" onclick="parseMeal()">Analyse Meal</button>
 </div>
 
-<!-- Meal list -->
-<div class="card">
-    <p class="card-title">Your Meal</p>
-    <div id="meal-list">
-        <p class="empty-meal">No items added yet</p>
-    </div>
-    <div class="total-row" id="total-row" style="display:none">
+<!-- Parsed breakdown -->
+<div class="card" id="breakdown-card" style="display:none">
+    <p class="card-title">Meal Breakdown</p>
+    <div id="meal-list"></div>
+    <div class="total-row">
         <span>Total carbs</span>
         <span class="total-carbs" id="total-carbs">0g</span>
     </div>
 </div>
 
 <!-- Blood glucose -->
-<div class="card">
+<div class="card" id="bg-card" style="display:none">
     <p class="card-title">Current Blood Glucose</p>
     <div class="bg-row">
         <input type="number" id="bg" placeholder="e.g. 7.4" step="0.1" inputmode="decimal">
         <span class="bg-unit">mmol/L</span>
     </div>
+    <button class="btn" onclick="calculate()">Calculate Dose</button>
 </div>
-
-<button class="calc-btn" onclick="calculate()">Calculate Dose</button>
 
 <!-- Result -->
 <div class="result" id="result">
     <p class="result-label">Suggested Dose</p>
     <p class="result-dose" id="dose-display">—</p>
     <p class="result-unit">units of insulin</p>
-    <div class="result-breakdown" id="breakdown"></div>
+    <div id="dose-breakdown"></div>
 </div>
 
 <p class="disclaimer">
     This tool is a calculation aid only. Always use your own judgement and consult your diabetes care team. Do not rely solely on this app for dosing decisions.
 </p>
 
-<!-- Portion modal -->
-<div class="overlay" id="overlay">
-    <div class="modal">
-        <h3 id="modal-food-name"></h3>
-        <p class="modal-carbs" id="modal-food-carbs"></p>
-        <div class="field">
-            <label>How many grams are you eating?</label>
-            <input type="number" id="modal-grams" placeholder="e.g. 150" step="1" inputmode="decimal">
-        </div>
-        <button class="modal-btn" onclick="confirmAdd()">Add to Meal</button>
-        <button class="modal-cancel" onclick="closeModal()">Cancel</button>
-    </div>
-</div>
-
-<script src="/insulin_static/foods.js"></script>
 <script>
-    let mealItems = [];
-    let pendingFood = null;
-    let currentResults = [];
+    let totalCarbs = 0;
 
     window.onload = () => {
         ['icr', 'isf', 'target'].forEach(id => {
             const saved = localStorage.getItem(id);
             if (saved) document.getElementById(id).value = saved;
-        });
-        document.getElementById('search-input').addEventListener('keydown', e => {
-            if (e.key === 'Enter') searchFood();
-        });
-        document.getElementById('search-input').addEventListener('input', e => {
-            searchLocal(e.target.value.trim());
         });
     };
 
@@ -451,141 +278,60 @@
         document.getElementById('settings').classList.toggle('open');
     }
 
-    function searchLocal(query) {
-        const resultsEl = document.getElementById('search-results');
-        if (!query) { resultsEl.style.display = 'none'; return; }
+    async function parseMeal() {
+        const description = document.getElementById('meal-input').value.trim();
+        if (!description) { alert('Please describe what you\'re eating.'); return; }
 
-        const matches = COMMON_FOODS.filter(f =>
-            f.name.toLowerCase().includes(query.toLowerCase())
-        ).slice(0, 8);
-
-        currentResults = matches.map(f => ({ name: f.name, carbsPer100g: f.carbs }));
-
-        if (matches.length > 0) {
-            resultsEl.style.display = 'block';
-            resultsEl.innerHTML = matches.map((f, i) => `
-                <div class="search-result-item" onclick="selectFood(${i})">
-                    <div class="result-name">${f.name}</div>
-                    <div class="result-carbs">${f.carbs.toFixed(1)}g carbs per 100g</div>
-                </div>
-            `).join('') + `<div class="search-result-item" style="color:var(--muted);font-size:0.8rem" onclick="searchFood()">
-                Not here? Search online →
-            </div>`;
-        } else {
-            resultsEl.style.display = 'block';
-            resultsEl.innerHTML = `<div class="no-results">Not in common foods. <span style="color:var(--accent);cursor:pointer" onclick="searchFood()">Search online →</span></div>`;
+        const icr = document.getElementById('icr').value;
+        const isf = document.getElementById('isf').value;
+        const target = document.getElementById('target').value;
+        if (!icr || !isf || !target) {
+            document.getElementById('settings').classList.add('open');
+            alert('Please fill in your personal ratios in Settings first.');
+            return;
         }
-    }
 
-    async function searchFood() {
-        const query = document.getElementById('search-input').value.trim();
-        if (!query) return;
-
-        const resultsEl = document.getElementById('search-results');
-        const loadingEl = document.getElementById('loading');
-
-        resultsEl.style.display = 'none';
-        loadingEl.style.display = 'block';
+        const btn = document.getElementById('parse-btn');
+        const msg = document.getElementById('parsing-msg');
+        btn.disabled = true;
+        msg.style.display = 'block';
+        document.getElementById('breakdown-card').style.display = 'none';
+        document.getElementById('bg-card').style.display = 'none';
+        document.getElementById('result').style.display = 'none';
 
         try {
-            const url = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(query)}&json=1&fields=product_name,nutriments&page_size=8&action=process`;
-            const res = await fetch(url);
+            const res = await fetch('/parse-meal', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ description })
+            });
             const data = await res.json();
 
-            loadingEl.style.display = 'none';
-            resultsEl.style.display = 'block';
+            if (data.error) throw new Error(data.error);
 
-            const products = (data.products || []).filter(p =>
-                p.product_name &&
-                p.nutriments &&
-                p.nutriments.carbohydrates_100g != null
-            );
+            totalCarbs = data.items.reduce((sum, item) => sum + item.total_carbs_g, 0);
 
-            if (products.length === 0) {
-                resultsEl.innerHTML = '<p class="no-results">No results found. Try a different search term.</p>';
-                return;
-            }
-
-            currentResults = products.map(p => ({
-                name: p.product_name,
-                carbsPer100g: p.nutriments.carbohydrates_100g
-            }));
-
-            resultsEl.innerHTML = currentResults.map((f, i) => `
-                <div class="search-result-item" onclick="selectFood(${i})">
-                    <div class="result-name">${f.name}</div>
-                    <div class="result-carbs">${f.carbsPer100g.toFixed(1)}g carbs per 100g</div>
+            document.getElementById('meal-list').innerHTML = data.items.map(item => `
+                <div class="meal-item">
+                    <div>
+                        <div class="meal-name">${item.food}</div>
+                        <div class="meal-detail">${item.quantity} · ${item.weight_g}g · ${item.carbs_per_100g}g carbs/100g</div>
+                    </div>
+                    <div class="meal-carbs">${item.total_carbs_g.toFixed(1)}g</div>
                 </div>
             `).join('');
 
+            document.getElementById('total-carbs').textContent = `${totalCarbs.toFixed(1)}g`;
+            document.getElementById('breakdown-card').style.display = 'block';
+            document.getElementById('bg-card').style.display = 'block';
+            document.getElementById('breakdown-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
         } catch (err) {
-            loadingEl.style.display = 'none';
-            resultsEl.style.display = 'block';
-            resultsEl.innerHTML = '<p class="no-results">Search failed. Check your connection and try again.</p>';
+            alert('Something went wrong parsing your meal. Please try again.');
+        } finally {
+            btn.disabled = false;
+            msg.style.display = 'none';
         }
-    }
-
-    function selectFood(index) {
-        const food = currentResults[index];
-        pendingFood = food;
-        document.getElementById('modal-food-name').textContent = food.name;
-        document.getElementById('modal-food-carbs').textContent = `${food.carbsPer100g.toFixed(1)}g carbs per 100g`;
-        document.getElementById('modal-grams').value = '';
-        document.getElementById('overlay').classList.add('open');
-    }
-
-    function confirmAdd() {
-        const grams = parseFloat(document.getElementById('modal-grams').value);
-        if (!grams || grams <= 0) {
-            alert('Please enter a valid weight in grams.');
-            return;
-        }
-        const carbs = (pendingFood.carbsPer100g * grams) / 100;
-        mealItems.push({ name: pendingFood.name, grams, carbs });
-        closeModal();
-        renderMeal();
-        document.getElementById('search-input').value = '';
-        document.getElementById('search-results').style.display = 'none';
-    }
-
-    function closeModal() {
-        document.getElementById('overlay').classList.remove('open');
-        pendingFood = null;
-    }
-
-    function removeItem(index) {
-        mealItems.splice(index, 1);
-        renderMeal();
-    }
-
-    function renderMeal() {
-        const listEl = document.getElementById('meal-list');
-        const totalEl = document.getElementById('total-row');
-        const totalCarbsEl = document.getElementById('total-carbs');
-
-        if (mealItems.length === 0) {
-            listEl.innerHTML = '<p class="empty-meal">No items added yet</p>';
-            totalEl.style.display = 'none';
-            return;
-        }
-
-        const totalCarbs = mealItems.reduce((sum, item) => sum + item.carbs, 0);
-
-        listEl.innerHTML = mealItems.map((item, i) => `
-            <div class="meal-item">
-                <div>
-                    <div class="meal-name">${item.name}</div>
-                    <div class="meal-detail">${item.grams}g</div>
-                </div>
-                <div class="meal-right">
-                    <span class="meal-carbs">${item.carbs.toFixed(1)}g carbs</span>
-                    <button class="remove-btn" onclick="removeItem(${i})">×</button>
-                </div>
-            </div>
-        `).join('');
-
-        totalEl.style.display = 'flex';
-        totalCarbsEl.textContent = `${totalCarbs.toFixed(1)}g`;
     }
 
     function calculate() {
@@ -594,50 +340,33 @@
         const target = parseFloat(document.getElementById('target').value);
         const bg     = parseFloat(document.getElementById('bg').value);
 
-        if (!icr || !isf || !target) {
-            document.getElementById('settings').classList.add('open');
-            alert('Please fill in your personal ratios in Settings first.');
-            return;
-        }
-        if (mealItems.length === 0) {
-            alert('Please add at least one food item.');
-            return;
-        }
-        if (!bg) {
-            alert('Please enter your current blood glucose.');
-            return;
-        }
+        if (!bg) { alert('Please enter your current blood glucose.'); return; }
 
         localStorage.setItem('icr', icr);
         localStorage.setItem('isf', isf);
         localStorage.setItem('target', target);
 
-        const totalCarbs     = mealItems.reduce((sum, item) => sum + item.carbs, 0);
         const mealDose       = totalCarbs / icr;
         const correctionDose = (bg - target) / isf;
-        const totalRaw       = mealDose + correctionDose;
-        const total          = Math.max(0, Math.round(totalRaw * 2) / 2);
+        const total          = Math.max(0, Math.round((mealDose + correctionDose) * 2) / 2);
 
-        const doseEl      = document.getElementById('dose-display');
-        const breakdownEl = document.getElementById('breakdown');
-        const resultEl    = document.getElementById('result');
-
-        doseEl.textContent = total % 1 === 0 ? total : total.toFixed(1);
+        document.getElementById('dose-display').textContent = total % 1 === 0 ? total : total.toFixed(1);
 
         const correctionNote = correctionDose < 0
             ? `<div style="color:var(--success);margin-top:8px">BG below target — correction reduced dose</div>`
             : '';
 
-        breakdownEl.innerHTML = `
-            <div>Total carbs <span>${totalCarbs.toFixed(1)}g</span></div>
-            <div>Meal dose (${totalCarbs.toFixed(1)}g ÷ ${icr}) <span>${mealDose.toFixed(1)} u</span></div>
-            <div>Correction ((${bg} − ${target}) ÷ ${isf}) <span>${correctionDose.toFixed(1)} u</span></div>
-            <div>Total (rounded to 0.5) <span>${total % 1 === 0 ? total : total.toFixed(1)} u</span></div>
-            ${correctionNote}
-        `;
+        document.getElementById('dose-breakdown').innerHTML = `
+            <div style="font-size:0.82rem;color:var(--muted);line-height:2;border-top:1px solid var(--border);padding-top:16px;text-align:left">
+                <div>Total carbs <span style="color:var(--text);float:right">${totalCarbs.toFixed(1)}g</span></div>
+                <div>Meal dose (${totalCarbs.toFixed(1)}g ÷ ${icr}) <span style="color:var(--text);float:right">${mealDose.toFixed(1)} u</span></div>
+                <div>Correction ((${bg} − ${target}) ÷ ${isf}) <span style="color:var(--text);float:right">${correctionDose.toFixed(1)} u</span></div>
+                <div>Total (rounded to 0.5) <span style="color:var(--text);float:right">${total % 1 === 0 ? total : total.toFixed(1)} u</span></div>
+                ${correctionNote}
+            </div>`;
 
-        resultEl.style.display = 'block';
-        resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        document.getElementById('result').style.display = 'block';
+        document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     if ('serviceWorker' in navigator) {
