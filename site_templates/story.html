@@ -28,21 +28,15 @@
         margin-bottom: 40px;
     }
 
-    .bio-wrapper {
-        display: grid;
-        grid-template-columns: 160px 1fr;
-        gap: 0 36px;
-        align-items: start;
-        margin-bottom: 0;
-    }
-
     .photo {
-        width: 160px;
-        height: 160px;
+        display: block;
+        width: 140px;
+        height: 140px;
         border-radius: 50%;
         object-fit: cover;
         object-position: top;
         border: 2px solid var(--border);
+        margin: 0 auto 36px;
     }
 
     .bio {
@@ -92,10 +86,10 @@
 <h1>From Medical Writing<br>to Sales Engineering</h1>
 <div class="divider"></div>
 
-<div class="bio-wrapper">
-    <img src="{{ url_for('static', filename='zac.png') }}" alt="Zac de Moor" class="photo">
-    <div class="bio">
-        <p>
+<img src="{{ url_for('static', filename='zac.png') }}" alt="Zac de Moor" class="photo">
+
+<div class="bio">
+    <p>
             I spent several years as a <span class="highlight">medical writer for large enterprise pharma companies</span>,
             shaping content strategy and go-to-market paths for new drugs and treatments. The role involved
             constant collaboration with subject matter experts and senior stakeholders—and I loved that side of it.
@@ -111,7 +105,6 @@
             <span class="highlight">AI-powered tools from scratch</span>—including this site.
             I'm beyond excited to bring these skills into a real role.
         </p>
-    </div>
 </div>
 
 <div class="stats">
