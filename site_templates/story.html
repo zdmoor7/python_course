@@ -28,6 +28,23 @@
         margin-bottom: 40px;
     }
 
+    .bio-wrapper {
+        display: grid;
+        grid-template-columns: 160px 1fr;
+        gap: 0 36px;
+        align-items: start;
+        margin-bottom: 0;
+    }
+
+    .photo {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: top;
+        border: 2px solid var(--border);
+    }
+
     .bio {
         font-size: 1.05rem;
         color: #c8c8c8;
@@ -43,30 +60,12 @@
         font-weight: 500;
     }
 
-    .photo {
-        float: left;
-        width: 160px;
-        height: 160px;
-        border-radius: 50%;
-        object-fit: cover;
-        object-position: top;
-        border: 2px solid var(--border);
-        margin: 6px 36px 24px 0;
-    }
-
-    .bio::after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-
     .stats {
         display: flex;
         gap: 40px;
         margin-top: 48px;
         padding-top: 40px;
         border-top: 1px solid var(--border);
-        clear: both;
     }
 
     .stat {
@@ -93,8 +92,9 @@
 <h1>From Medical Writing<br>to Sales Engineering</h1>
 <div class="divider"></div>
 
-<div class="bio">
+<div class="bio-wrapper">
     <img src="{{ url_for('static', filename='zac.png') }}" alt="Zac de Moor" class="photo">
+    <div class="bio">
         <p>
             I spent several years as a <span class="highlight">medical writer for large enterprise pharma companies</span>,
             shaping content strategy and go-to-market paths for new drugs and treatments. The role involved
@@ -111,6 +111,7 @@
             <span class="highlight">AI-powered tools from scratch</span>—including this site.
             I'm beyond excited to bring these skills into a real role.
         </p>
+    </div>
 </div>
 
 <div class="stats">

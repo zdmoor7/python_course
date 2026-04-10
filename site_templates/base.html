@@ -70,11 +70,17 @@
         }
 
         footer {
-            text-align: center;
-            padding: 40px;
+            padding: 0 40px 40px;
             color: var(--muted);
             font-size: 0.8rem;
+        }
+
+        footer .inner {
+            max-width: 860px;
+            margin: 0 auto;
             border-top: 1px solid var(--border);
+            padding-top: 40px;
+            text-align: center;
         }
     </style>
 </head>
@@ -92,7 +98,7 @@
     </main>
 
     <footer>
-        &copy; 2026 Zac de Moor
+        <div class="inner">&copy; 2026 Zac de Moor</div>
     </footer>
 </body>
 </html>
