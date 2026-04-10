@@ -37,9 +37,12 @@ Use accurate, commonly accepted carb values per 100g. Be realistic with portion 
 
     try:
         response = get_client().send_message(prompt)
-        # Strip markdown code fences if present
-        cleaned = response.strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip()
-        items = json.loads(cleaned)
+        # Extract JSON array from anywhere in the response
+        import re
+        match = re.search(r'\[.*\]', response, re.DOTALL)
+        if not match:
+            return jsonify({"error": "Could not extract meal data"}), 500
+        items = json.loads(match.group())
         return jsonify({"items": items})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
