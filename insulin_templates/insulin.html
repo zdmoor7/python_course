@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Insulin Calculator</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#7c6af7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Insulin">
+    <link rel="apple-touch-icon" href="/insulin_static/icon-192.png">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0d0d0d;
+            --card: #141414;
+            --border: #2a2a2a;
+            --text: #e8e8e8;
+            --muted: #888;
+            --accent: #7c6af7;
+            --accent-dim: rgba(124, 106, 247, 0.15);
+            --danger: #f87171;
+            --success: #34d399;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            min-height: 100vh;
+            padding: 24px 20px 48px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .field {
+            margin-bottom: 16px;
+        }
+
+        .field:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-size: 1.1rem;
+            color: var(--text);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .hint {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 6px;
+        }
+
+        button {
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 18px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            letter-spacing: 0.02em;
+        }
+
+        button:active {
+            opacity: 0.85;
+        }
+
+        .result {
+            display: none;
+            background: var(--accent-dim);
+            border: 1px solid var(--accent);
+            border-radius: 14px;
+            padding: 24px 20px;
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .result-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .result-dose {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .result-unit {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .result-breakdown {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.8;
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+            text-align: left;
+        }
+
+        .result-breakdown span {
+            color: var(--text);
+            float: right;
+        }
+
+        .disclaimer {
+            font-size: 0.72rem;
+            color: var(--muted);
+            text-align: center;
+            margin-top: 24px;
+            line-height: 1.6;
+            padding: 0 8px;
+        }
+
+        .settings-toggle {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 16px;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .settings-card {
+            display: none;
+        }
+
+        .settings-card.open {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Insulin Calculator</h1>
+    <p class="subtitle">For Type 1 Diabetes — mmol/L</p>
+
+    <!-- Settings -->
+    <div class="settings-toggle" onclick="toggleSettings()">⚙ My Settings</div>
+    <div class="card settings-card" id="settings">
+        <p class="card-title">Your Personal Ratios</p>
+        <div class="field">
+            <label>Insulin-to-Carb Ratio (ICR) — grams of carbs per 1 unit</label>
+            <input type="number" id="icr" placeholder="e.g. 10" step="0.5" inputmode="decimal">
+            <p class="hint">1 unit covers this many grams of carbs</p>
+        </div>
+        <div class="field">
+            <label>Correction Factor (ISF) — mmol/L drop per 1 unit</label>
+            <input type="number" id="isf" placeholder="e.g. 2.5" step="0.1" inputmode="decimal">
+            <p class="hint">1 unit drops your blood glucose by this amount</p>
+        </div>
+        <div class="field">
+            <label>Target Blood Glucose (mmol/L)</label>
+            <input type="number" id="target" placeholder="e.g. 6.0" step="0.1" inputmode="decimal">
+        </div>
+    </div>
+
+    <!-- Meal inputs -->
+    <div class="card">
+        <p class="card-title">This Meal</p>
+        <div class="field">
+            <label>Carbohydrates (grams)</label>
+            <input type="number" id="carbs" placeholder="e.g. 60" step="1" inputmode="decimal">
+        </div>
+        <div class="field">
+            <label>Current Blood Glucose (mmol/L)</label>
+            <input type="number" id="bg" placeholder="e.g. 7.4" step="0.1" inputmode="decimal">
+        </div>
+    </div>
+
+    <button onclick="calculate()">Calculate Dose</button>
+
+    <!-- Result -->
+    <div class="result" id="result">
+        <p class="result-label">Suggested Dose</p>
+        <p class="result-dose" id="dose-display">—</p>
+        <p class="result-unit">units of insulin</p>
+        <div class="result-breakdown" id="breakdown"></div>
+    </div>
+
+    <p class="disclaimer">
+        This tool is a calculation aid only. Always use your own judgement and consult your diabetes care team. Do not rely solely on this app for dosing decisions.
+    </p>
+
+    <script>
+        // Load saved settings from localStorage
+        window.onload = function() {
+            ['icr', 'isf', 'target'].forEach(id => {
+                const saved = localStorage.getItem(id);
+                if (saved) document.getElementById(id).value = saved;
+            });
+        };
+
+        function toggleSettings() {
+            const card = document.getElementById('settings');
+            card.classList.toggle('open');
+        }
+
+        function calculate() {
+            const icr    = parseFloat(document.getElementById('icr').value);
+            const isf    = parseFloat(document.getElementById('isf').value);
+            const target = parseFloat(document.getElementById('target').value);
+            const carbs  = parseFloat(document.getElementById('carbs').value);
+            const bg     = parseFloat(document.getElementById('bg').value);
+
+            if (!icr || !isf || !target) {
+                toggleSettings();
+                alert('Please fill in your personal ratios in Settings first.');
+                return;
+            }
+            if (!carbs || !bg) {
+                alert('Please enter your carbs and current blood glucose.');
+                return;
+            }
+
+            // Save settings
+            localStorage.setItem('icr', icr);
+            localStorage.setItem('isf', isf);
+            localStorage.setItem('target', target);
+
+            const mealDose       = carbs / icr;
+            const correctionDose = (bg - target) / isf;
+            const totalRaw       = mealDose + correctionDose;
+            const total          = Math.round(totalRaw * 2) / 2; // round to nearest 0.5
+
+            const resultEl    = document.getElementById('result');
+            const doseEl      = document.getElementById('dose-display');
+            const breakdownEl = document.getElementById('breakdown');
+
+            if (total <= 0) {
+                doseEl.textContent = '0';
+                breakdownEl.innerHTML = `
+                    <div>Meal dose <span>${mealDose.toFixed(1)} u</span></div>
+                    <div>Correction <span>${correctionDose.toFixed(1)} u</span></div>
+                    <div style="margin-top:8px;color:var(--success)">Your BG is below target — no correction needed.</div>
+                `;
+            } else {
+                doseEl.textContent = total % 1 === 0 ? total : total.toFixed(1);
+                breakdownEl.innerHTML = `
+                    <div>Meal dose (${carbs}g ÷ ${icr}) <span>${mealDose.toFixed(1)} u</span></div>
+                    <div>Correction ((${bg} − ${target}) ÷ ${isf}) <span>${correctionDose.toFixed(1)} u</span></div>
+                    <div>Total (rounded to 0.5) <span>${total % 1 === 0 ? total : total.toFixed(1)} u</span></div>
+                `;
+            }
+
+            resultEl.style.display = 'block';
+        }
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    </script>
+
+</body>
+</html>
