@@ -190,6 +190,25 @@
             display: none;
         }
 
+        .consideration-item {
+            display: flex;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.88rem;
+            color: #c8c8c8;
+            line-height: 1.5;
+        }
+
+        .consideration-item:last-child { border-bottom: none; }
+
+        .consideration-dot {
+            color: #f59e0b;
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
         .disclaimer {
             font-size: 0.72rem;
             color: var(--muted);
@@ -228,7 +247,11 @@
 <div class="card">
     <p class="card-title">What Are You Eating?</p>
     <textarea id="meal-input" placeholder="e.g. two apples, a few dates, a banana and some peanut butter"></textarea>
-    <p class="parsing-msg" id="parsing-msg">Calculating carbs...</p>
+    <div style="margin-top:12px">
+        <label style="font-size:0.8rem;color:var(--muted);margin-bottom:6px;display:block">Any context? <span style="opacity:0.6">(optional)</span></label>
+        <textarea id="context-input" placeholder="e.g. just went for a run, high fat meal, going for a walk in an hour" style="height:64px"></textarea>
+    </div>
+    <p class="parsing-msg" id="parsing-msg">Analysing meal...</p>
     <button class="btn" id="parse-btn" onclick="parseMeal()">Analyse Meal</button>
 </div>
 
@@ -258,6 +281,12 @@
     <p class="result-dose" id="dose-display">—</p>
     <p class="result-unit">units of insulin</p>
     <div id="dose-breakdown"></div>
+</div>
+
+<!-- Considerations -->
+<div class="card" id="considerations-card" style="display:none">
+    <p class="card-title">⚠ Considerations</p>
+    <div id="considerations-list"></div>
 </div>
 
 <p class="disclaimer">
@@ -291,6 +320,7 @@
             return;
         }
 
+        const context = document.getElementById('context-input').value.trim();
         const btn = document.getElementById('parse-btn');
         const msg = document.getElementById('parsing-msg');
         btn.disabled = true;
@@ -298,12 +328,13 @@
         document.getElementById('breakdown-card').style.display = 'none';
         document.getElementById('bg-card').style.display = 'none';
         document.getElementById('result').style.display = 'none';
+        document.getElementById('considerations-card').style.display = 'none';
 
         try {
             const res = await fetch('/parse-meal', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ description })
+                body: JSON.stringify({ description, context })
             });
             const data = await res.json();
 
@@ -324,6 +355,19 @@
             document.getElementById('total-carbs').textContent = `${totalCarbs.toFixed(1)}g`;
             document.getElementById('breakdown-card').style.display = 'block';
             document.getElementById('bg-card').style.display = 'block';
+
+            // Show considerations if any
+            const considerations = data.considerations || [];
+            if (considerations.length > 0) {
+                document.getElementById('considerations-list').innerHTML = considerations.map(c => `
+                    <div class="consideration-item">
+                        <span class="consideration-dot">●</span>
+                        <span>${c}</span>
+                    </div>
+                `).join('');
+                document.getElementById('considerations-card').style.display = 'block';
+            }
+
             document.getElementById('breakdown-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
         } catch (err) {

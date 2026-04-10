@@ -1,5 +1,6 @@
 import os
 import json
+import re
 from flask import Flask, render_template, send_from_directory, request, jsonify
 from dotenv import load_dotenv
 from api_wrapper import AnthropicClient
@@ -21,29 +22,39 @@ def index():
 @app.route("/parse-meal", methods=["POST"])
 def parse_meal():
     description = request.json.get("description", "")
-    prompt = f"""You are a nutrition assistant helping a Type 1 diabetic calculate insulin doses.
+    context = request.json.get("context", "").strip()
 
-The user has described their meal as: "{description}"
+    context_section = f"\nThe user has also provided this context: \"{context}\"" if context else ""
 
-Parse this into individual food items. For each item, estimate a realistic portion size and calculate the carbohydrate content.
+    prompt = f"""You are a clinical diabetes nutrition assistant helping a Type 1 diabetic calculate insulin doses.
 
-Return ONLY a valid JSON array with no explanation, in this exact format:
+The user has described their meal as: "{description}"{context_section}
+
+Return a single JSON object with two keys:
+
+1. "items": an array of food items in this format:
 [
-  {{"food": "Apple", "quantity": "2 medium", "weight_g": 340, "carbs_per_100g": 14.0, "total_carbs_g": 47.6}},
-  ...
+  {{"food": "Apple", "quantity": "2 medium", "weight_g": 340, "carbs_per_100g": 14.0, "total_carbs_g": 47.6}}
 ]
 
-Use accurate, commonly accepted carb values per 100g. Be realistic with portion sizes — e.g. "a few dates" = 3-4 dates (~30g each), "some peanut butter" = 2 tablespoons (~32g). Only return the JSON array, nothing else."""
+2. "considerations": an array of 1-4 short, specific, actionable considerations based on the meal and any context provided. Each consideration should be a plain string. Only include considerations that are genuinely relevant. Examples of the kind of thing to include:
+- High fat or protein content slowing carb absorption
+- Recent or planned exercise reducing insulin needs
+- High GI foods causing rapid glucose spike
+- Alcohol affecting glucose regulation
+- Time of day effects (e.g. dawn phenomenon)
+
+If no context was provided and the meal is straightforward, return an empty array for considerations.
+
+Return ONLY the JSON object, no explanation."""
 
     try:
         response = get_client().send_message(prompt)
-        # Extract JSON array from anywhere in the response
-        import re
-        match = re.search(r'\[.*\]', response, re.DOTALL)
+        match = re.search(r'\{.*\}', response, re.DOTALL)
         if not match:
-            return jsonify({"error": "Could not extract meal data"}), 500
-        items = json.loads(match.group())
-        return jsonify({"items": items})
+            return jsonify({"error": "Could not parse meal data"}), 500
+        data = json.loads(match.group())
+        return jsonify(data)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
