@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zac de Moor — Sales Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    <meta property="og:title" content="Zac de Moor — Sales Engineer">
+    <meta property="og:description" content="From medical writing to sales engineering. Builder of AI-powered tools and passionate about technical storytelling.">
+    <meta property="og:image" content="https://zac-de-moor.onrender.com/static/zac.png">
+    <meta property="og:url" content="https://zac-de-moor.onrender.com">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://zac-de-moor.onrender.com/static/zac.png">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0d0d0d;
+            --bg-card: #141414;
+            --bg-card-hover: #181818;
+            --border: #222;
+            --border-hover: #333;
+            --text: #e8e8e8;
+            --muted: #555;
+            --muted-mid: #888;
+            --accent: #7c6af7;
+            --accent-dim: rgba(124, 106, 247, 0.08);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--muted-mid);
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* ── Layout ───────────────────────────── */
+        .layout {
+            display: flex;
+            align-items: flex-start;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 60px;
+            gap: 80px;
+        }
+
+        /* ── Sidebar ──────────────────────────── */
+        .sidebar {
+            width: 290px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 96px 0;
+        }
+
+        .sidebar-top { flex: 1; }
+
+        .sidebar-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: var(--text);
+            text-decoration: none;
+            display: block;
+            line-height: 1.15;
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+
+        .sidebar-title {
+            font-size: 0.95rem;
+            color: var(--text);
+            font-weight: 400;
+            margin-bottom: 18px;
+        }
+
+        .sidebar-tagline {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.65;
+            max-width: 210px;
+            margin-bottom: 52px;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.72rem;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            padding: 6px 0;
+            transition: color 0.2s;
+        }
+
+        .sidebar-nav a::before {
+            content: '';
+            display: block;
+            height: 1px;
+            width: 24px;
+            background: currentColor;
+            transition: width 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            color: var(--text);
+        }
+
+        .sidebar-nav a.active::before,
+        .sidebar-nav a:hover::before {
+            width: 52px;
+        }
+
+        .sidebar-social {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .sidebar-social a {
+            color: var(--muted);
+            text-decoration: none;
+            display: flex;
+            transition: color 0.2s;
+        }
+
+        .sidebar-social a:hover { color: var(--text); }
+
+        /* ── Content ──────────────────────────── */
+        .content {
+            flex: 1;
+            min-width: 0;
+            padding: 96px 0;
+        }
+
+        /* ── Sections ─────────────────────────── */
+        section {
+            padding-bottom: 120px;
+        }
+
+        section + section {
+            padding-top: 0;
+        }
+
+        .section-label {
+            display: block;
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 36px;
+        }
+
+        /* ── Story section ────────────────────── */
+        .story-intro {
+            margin-bottom: 52px;
+        }
+
+        .story-intro h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            line-height: 1.25;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .story-intro .lead {
+            font-size: 0.88rem;
+            color: var(--muted);
+        }
+
+        .photo {
+            display: block;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: top;
+            border: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+
+        .bio {
+            font-size: 0.92rem;
+            color: var(--muted-mid);
+            line-height: 1.9;
+        }
+
+        .bio p + p { margin-top: 24px; }
+
+        .highlight {
+            color: var(--text);
+            font-weight: 400;
+        }
+
+        .stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 52px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .stat { display: flex; flex-direction: column; gap: 6px; }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* ── Projects section ─────────────────── */
+        .projects-intro {
+            margin-bottom: 52px;
+        }
+
+        .projects-intro h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            line-height: 1.25;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .projects-intro .subtitle {
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .card {
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            padding: 28px 24px;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-hover);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            margin-bottom: 10px;
+        }
+
+        .card-number {
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            flex-shrink: 0;
+        }
+
+        .card h3 {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .card p {
+            font-size: 0.86rem;
+            color: var(--muted-mid);
+            line-height: 1.75;
+            margin-left: 44px;
+        }
+
+        .card video {
+            display: block;
+            width: 100%;
+            border-radius: 6px;
+            margin-top: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+            margin-left: 44px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.68rem;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* ── Footer ───────────────────────────── */
+        .page-footer {
+            padding-top: 36px;
+            border-top: 1px solid var(--border);
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        /* ── Responsive ───────────────────────── */
+        @media (max-width: 800px) {
+            .layout { flex-direction: column; padding: 0 28px; gap: 0; }
+            .sidebar { position: static; height: auto; width: 100%; padding: 48px 0 32px; }
+            .sidebar-tagline { max-width: 100%; }
+            .content { padding: 48px 0; }
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <a href="#story" class="sidebar-name">Zac<br>de Moor</a>
+            <p class="sidebar-title">Sales Engineer</p>
+            <p class="sidebar-tagline">Technical storytelling at the intersection of people and product.</p>
+            <nav>
+                <ul class="sidebar-nav">
+                    <li><a href="#story">My Story</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="sidebar-social">
+            <a href="https://github.com/zdmoor7" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/zac-de-moor-743189251/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                    <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+                </svg>
+            </a>
+            <a href="mailto:zdmoor7@gmail.com" aria-label="Email">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                </svg>
+            </a>
+        </div>
+    </aside>
+
+    <!-- ── Scrollable content ── -->
+    <div class="content">
+
+        <!-- My Story -->
+        <section id="story">
+            <span class="section-label">01 — My Story</span>
+            <div class="story-intro">
+                <h2>From Medical Writing<br>to Sales Engineering</h2>
+                <p class="lead">Career Transition</p>
+            </div>
+            <img src="/static/zac.png" alt="Zac de Moor" class="photo">
+            <div class="bio">
+                <p>
+                    I spent several years as a <span class="highlight">medical writer for large enterprise pharma companies</span>,
+                    shaping content strategy and go-to-market paths for new drugs and treatments. The role involved
+                    constant collaboration with subject matter experts and senior stakeholders—and I loved that side of it.
+                </p>
+                <p>
+                    But over time I realized the work had become too solitary, and I wanted something that sat at
+                    <span class="highlight">the intersection of interpersonal communication and technical storytelling</span>.
+                </p>
+                <p>
+                    Sales Engineering is that role. In the months since deciding to make the transition, I've networked with
+                    <span class="highlight">over 40 Sales Engineers</span>, completed a
+                    <span class="highlight">Demo2Win bootcamp</span>, and built a suite of
+                    <span class="highlight">AI-powered tools from scratch</span>—including this site.
+                    I'm beyond excited to bring these skills into a real role.
+                </p>
+            </div>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">40+</span>
+                    <span class="stat-label">SE conversations</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">1</span>
+                    <span class="stat-label">Demo2Win bootcamp</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Curiosity</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects">
+            <span class="section-label">02 — Projects</span>
+            <div class="projects-intro">
+                <h2>Demos &amp; Projects</h2>
+                <p class="subtitle">A selection of tools, demos, and builds from my transition into Sales Engineering.</p>
+            </div>
+            <div class="card-list">
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-number">01</span>
+                        <h3>Yoodli Full Demo</h3>
+                    </div>
+                    <video controls>
+                        <source src="/static/Yoodli full demo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-number">02</span>
+                        <h3>Project Title</h3>
+                    </div>
+                    <p>A short description of what this demo does, the problem it solves, and the technologies used to build it.</p>
+                    <div class="tag-row"><span class="tag">Coming soon</span></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-number">03</span>
+                        <h3>Project Title</h3>
+                    </div>
+                    <p>A short description of what this demo does, the problem it solves, and the technologies used to build it.</p>
+                    <div class="tag-row"><span class="tag">Coming soon</span></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-number">04</span>
+                        <h3>Project Title</h3>
+                    </div>
+                    <p>A short description of what this demo does, the problem it solves, and the technologies used to build it.</p>
+                    <div class="tag-row"><span class="tag">Coming soon</span></div>
+                </div>
+
+            </div>
+        </section>
+
+        <footer class="page-footer">&copy; 2026 Zac de Moor</footer>
+    </div>
+
+</div>
+
+<script>
+    // Highlight active nav section on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(a => a.classList.remove('active'));
+                const active = document.querySelector(`.sidebar-nav a[href="#${entry.target.id}"]`);
+                if (active) active.classList.add('active');
+            }
+        });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
