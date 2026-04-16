@@ -18,94 +18,227 @@
         :root {
             --bg: #0d0d0d;
             --bg-card: #141414;
+            --bg-card-hover: #181818;
             --border: #222;
+            --border-hover: #333;
             --text: #e8e8e8;
-            --muted: #888;
+            --muted: #555;
+            --muted-mid: #888;
             --accent: #7c6af7;
-            --accent-dim: rgba(124, 106, 247, 0.12);
+            --accent-dim: rgba(124, 106, 247, 0.08);
         }
+
+        html { scroll-behavior: smooth; }
 
         body {
             background: var(--bg);
-            color: var(--text);
+            color: var(--muted-mid);
             font-family: 'Inter', sans-serif;
             font-weight: 300;
             line-height: 1.7;
             min-height: 100vh;
         }
 
-        nav {
+        /* ── Layout ───────────────────────────── */
+        .layout {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 28px 60px;
-            border-bottom: 1px solid var(--border);
+            align-items: flex-start;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 60px;
+            gap: 80px;
         }
 
-        .nav-name {
+        /* ── Sidebar ──────────────────────────── */
+        .sidebar {
+            width: 290px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 96px 0;
+        }
+
+        .sidebar-top { flex: 1; }
+
+        .sidebar-name {
             font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            letter-spacing: 0.02em;
+            font-size: 2.4rem;
+            font-weight: 600;
             color: var(--text);
             text-decoration: none;
+            display: block;
+            line-height: 1.15;
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 40px;
+        .sidebar-title {
+            font-size: 0.95rem;
+            color: var(--text);
+            font-weight: 400;
+            margin-bottom: 18px;
+            letter-spacing: 0.01em;
+        }
+
+        .sidebar-tagline {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.65;
+            max-width: 210px;
+            margin-bottom: 52px;
+        }
+
+        /* ── Sidebar nav ──────────────────────── */
+        .sidebar-nav {
             list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
-        .nav-links a {
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
             color: var(--muted);
             text-decoration: none;
-            font-size: 0.85rem;
-            letter-spacing: 0.08em;
+            font-size: 0.72rem;
+            letter-spacing: 0.13em;
             text-transform: uppercase;
+            padding: 6px 0;
             transition: color 0.2s;
         }
 
-        .nav-links a:hover,
-        .nav-links a.active {
+        .sidebar-nav a::before {
+            content: '';
+            display: block;
+            height: 1px;
+            width: 24px;
+            background: currentColor;
+            transition: width 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
             color: var(--text);
         }
 
-        main {
-            max-width: 860px;
-            margin: 0 auto;
-            padding: 80px 40px;
+        .sidebar-nav a.active::before,
+        .sidebar-nav a:hover::before {
+            width: 52px;
         }
 
-        footer {
-            padding: 0 40px 40px;
+        /* ── Social icons ─────────────────────── */
+        .sidebar-social {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .sidebar-social a {
             color: var(--muted);
-            font-size: 0.8rem;
+            text-decoration: none;
+            display: flex;
+            transition: color 0.2s;
         }
 
-        footer .inner {
-            max-width: 860px;
-            margin: 0 auto;
+        .sidebar-social a:hover { color: var(--text); }
+
+        /* ── Content area ─────────────────────── */
+        .content {
+            flex: 1;
+            min-width: 0;
+            padding: 96px 0 96px 0;
+        }
+
+        /* ── Section label ────────────────────── */
+        .section-label {
+            display: block;
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 36px;
+        }
+
+        /* ── Footer ───────────────────────────── */
+        .page-footer {
+            margin-top: 80px;
+            padding-top: 36px;
             border-top: 1px solid var(--border);
-            padding-top: 40px;
-            text-align: center;
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        /* ── Responsive ───────────────────────── */
+        @media (max-width: 800px) {
+            .layout {
+                flex-direction: column;
+                padding: 0 28px;
+                gap: 0;
+            }
+            .sidebar {
+                position: static;
+                height: auto;
+                width: 100%;
+                padding: 48px 0 32px;
+            }
+            .sidebar-tagline { max-width: 100%; }
+            .content { padding: 48px 0; }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a class="nav-name" href="/">Zac de Moor</a>
-        <ul class="nav-links">
-            <li><a href="/" class="{% if request.path == '/' %}active{% endif %}">My Story</a></li>
-            <li><a href="/projects" class="{% if request.path == '/projects' %}active{% endif %}">Projects</a></li>
-        </ul>
-    </nav>
+    <div class="layout">
 
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <a href="/" class="sidebar-name">Zac<br>de Moor</a>
+                <p class="sidebar-title">Sales Engineer</p>
+                <p class="sidebar-tagline">Technical storytelling at the intersection of people and product.</p>
 
-    <footer>
-        <div class="inner">&copy; 2026 Zac de Moor</div>
-    </footer>
+                <nav>
+                    <ul class="sidebar-nav">
+                        <li>
+                            <a href="/" class="{% if request.path == '/' %}active{% endif %}">My Story</a>
+                        </li>
+                        <li>
+                            <a href="/projects" class="{% if request.path == '/projects' %}active{% endif %}">Projects</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="sidebar-social">
+                <a href="https://github.com/zdmoor7" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/zac-de-moor-743189251/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                        <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+                    </svg>
+                </a>
+                <a href="mailto:zdmoor7@gmail.com" aria-label="Email">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                </a>
+            </div>
+        </aside>
+
+        <div class="content">
+            {% block content %}{% endblock %}
+            <footer class="page-footer">&copy; 2026 Zac de Moor</footer>
+        </div>
+
+    </div>
 </body>
 </html>

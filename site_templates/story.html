@@ -4,62 +4,59 @@
 
 {% block content %}
 <style>
-    .eyebrow {
-        font-size: 0.75rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--accent);
+    .story-intro {
+        margin-bottom: 52px;
+    }
+
+    .story-intro h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        font-weight: 600;
+        line-height: 1.25;
+        color: var(--text);
         margin-bottom: 20px;
     }
 
-    h1 {
-        font-family: 'Playfair Display', serif;
-        font-size: 3rem;
-        font-weight: 600;
-        line-height: 1.2;
-        margin-bottom: 48px;
-        color: var(--text);
-    }
-
-    .divider {
-        width: 48px;
-        height: 1px;
-        background: var(--accent);
-        margin-bottom: 40px;
+    .story-intro .lead {
+        font-size: 0.9rem;
+        color: var(--muted-mid);
+        max-width: 480px;
+        line-height: 1.75;
     }
 
     .photo {
         display: block;
-        width: 140px;
-        height: 140px;
+        width: 100px;
+        height: 100px;
         border-radius: 50%;
         object-fit: cover;
         object-position: top;
-        border: 2px solid var(--border);
-        margin: 0 0 36px;
+        border: 1px solid var(--border);
+        margin-bottom: 40px;
     }
 
     .bio {
-        font-size: 1.05rem;
-        color: #c8c8c8;
+        font-size: 0.92rem;
+        color: var(--muted-mid);
         line-height: 1.9;
     }
 
     .bio p + p {
-        margin-top: 28px;
+        margin-top: 24px;
     }
 
     .highlight {
         color: var(--text);
-        font-weight: 500;
+        font-weight: 400;
     }
 
     .stats {
         display: flex;
         gap: 40px;
-        margin-top: 48px;
+        margin-top: 52px;
         padding-top: 40px;
         border-top: 1px solid var(--border);
+        flex-wrap: wrap;
     }
 
     .stat {
@@ -70,41 +67,45 @@
 
     .stat-number {
         font-family: 'Playfair Display', serif;
-        font-size: 2.2rem;
+        font-size: 2rem;
         color: var(--accent);
+        line-height: 1;
     }
 
     .stat-label {
-        font-size: 0.8rem;
+        font-size: 0.72rem;
         color: var(--muted);
-        letter-spacing: 0.06em;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
     }
 </style>
 
-<p class="eyebrow">Career Transition</p>
-<h1>From Medical Writing<br>to Sales Engineering</h1>
-<div class="divider"></div>
+<span class="section-label">01 — My Story</span>
+
+<div class="story-intro">
+    <h1>From Medical Writing<br>to Sales Engineering</h1>
+    <p class="lead">Career Transition</p>
+</div>
 
 <img src="{{ url_for('static', filename='zac.png') }}" alt="Zac de Moor" class="photo">
 
 <div class="bio">
     <p>
-            I spent several years as a <span class="highlight">medical writer for large enterprise pharma companies</span>,
-            shaping content strategy and go-to-market paths for new drugs and treatments. The role involved
-            constant collaboration with subject matter experts and senior stakeholders—and I loved that side of it.
-        </p>
-        <p>
-            But over time I realized the work had become too solitary, and I wanted something that sat at
-            <span class="highlight">the intersection of interpersonal communication and technical storytelling</span>.
-        </p>
-        <p>
-            Sales Engineering is that role. In the months since deciding to make the transition, I've networked with
-            <span class="highlight">over 40 Sales Engineers</span>, completed a
-            <span class="highlight">Demo2Win bootcamp</span>, and built a suite of
-            <span class="highlight">AI-powered tools from scratch</span>—including this site.
-            I'm beyond excited to bring these skills into a real role.
-        </p>
+        I spent several years as a <span class="highlight">medical writer for large enterprise pharma companies</span>,
+        shaping content strategy and go-to-market paths for new drugs and treatments. The role involved
+        constant collaboration with subject matter experts and senior stakeholders—and I loved that side of it.
+    </p>
+    <p>
+        But over time I realized the work had become too solitary, and I wanted something that sat at
+        <span class="highlight">the intersection of interpersonal communication and technical storytelling</span>.
+    </p>
+    <p>
+        Sales Engineering is that role. In the months since deciding to make the transition, I've networked with
+        <span class="highlight">over 40 Sales Engineers</span>, completed a
+        <span class="highlight">Demo2Win bootcamp</span>, and built a suite of
+        <span class="highlight">AI-powered tools from scratch</span>—including this site.
+        I'm beyond excited to bring these skills into a real role.
+    </p>
 </div>
 
 <div class="stats">

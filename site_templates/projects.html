@@ -4,117 +4,156 @@
 
 {% block content %}
 <style>
-    .eyebrow {
-        font-size: 0.75rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--accent);
-        margin-bottom: 20px;
+    .projects-intro {
+        margin-bottom: 52px;
     }
 
-    h1 {
+    .projects-intro h1 {
         font-family: 'Playfair Display', serif;
-        font-size: 3rem;
+        font-size: 2rem;
         font-weight: 600;
-        line-height: 1.2;
-        margin-bottom: 16px;
-        color: var(--text);
-    }
-
-    .subtitle {
-        color: var(--muted);
-        font-size: 0.95rem;
-        margin-bottom: 64px;
-    }
-
-    .grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 24px;
-    }
-
-    .card {
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 36px;
-        transition: border-color 0.2s, background 0.2s;
-        cursor: default;
-    }
-
-    .card:hover {
-        border-color: var(--accent);
-        background: var(--accent-dim);
-    }
-
-    .card-number {
-        font-size: 0.72rem;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--accent);
-        margin-bottom: 20px;
-    }
-
-    .card h2 {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.3rem;
-        font-weight: 600;
+        line-height: 1.25;
         color: var(--text);
         margin-bottom: 12px;
     }
 
-    .card p {
-        font-size: 0.9rem;
+    .projects-intro .subtitle {
+        font-size: 0.88rem;
         color: var(--muted);
         line-height: 1.7;
     }
 
+    /* Cards — single column list like the reference */
+    .card-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .card {
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        padding: 28px 24px;
+        transition: background 0.2s, border-color 0.2s;
+        cursor: default;
+    }
+
+    .card:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--border-hover);
+    }
+
+    .card-header {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 10px;
+    }
+
+    .card-number {
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+        flex-shrink: 0;
+    }
+
+    .card h2 {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--text);
+        letter-spacing: 0.01em;
+    }
+
+    .card p {
+        font-size: 0.86rem;
+        color: var(--muted-mid);
+        line-height: 1.75;
+        margin-left: 44px;
+    }
+
+    .card video {
+        display: block;
+        width: 100%;
+        border-radius: 6px;
+        margin-top: 16px;
+        margin-left: 0;
+        border: 1px solid var(--border);
+    }
+
+    .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 14px;
+        margin-left: 44px;
+    }
+
     .tag {
         display: inline-block;
-        margin-top: 24px;
-        padding: 4px 12px;
+        padding: 3px 10px;
         border: 1px solid var(--border);
         border-radius: 20px;
-        font-size: 0.72rem;
+        font-size: 0.68rem;
         color: var(--muted);
-        letter-spacing: 0.06em;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
     }
 </style>
 
-<p class="eyebrow">Work</p>
-<h1>Demos &amp; Projects</h1>
-<p class="subtitle">A selection of tools, demos, and builds from my transition into Sales Engineering.</p>
+<span class="section-label">02 — Projects</span>
 
-<div class="grid">
+<div class="projects-intro">
+    <h1>Demos &amp; Projects</h1>
+    <p class="subtitle">A selection of tools, demos, and builds from my transition into Sales Engineering.</p>
+</div>
+
+<div class="card-list">
+
     <div class="card">
-        <p class="card-number">01</p>
-        <h2>Yoodli full demo</h2>
-        <video controls style="width: 100%; border-radius: 6px; margin-top: 12px;">
+        <div class="card-header">
+            <span class="card-number">01</span>
+            <h2>Yoodli Full Demo</h2>
+        </div>
+        <video controls>
             <source src="{{ url_for('static', filename='Yoodli full demo.mp4') }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
 
     <div class="card">
-        <p class="card-number">02</p>
-        <h2>Project Title</h2>
+        <div class="card-header">
+            <span class="card-number">02</span>
+            <h2>Project Title</h2>
+        </div>
         <p>A short description of what this demo does, the problem it solves, and the technologies used to build it.</p>
-        <span class="tag">Coming soon</span>
+        <div class="tag-row">
+            <span class="tag">Coming soon</span>
+        </div>
     </div>
 
     <div class="card">
-        <p class="card-number">03</p>
-        <h2>Project Title</h2>
+        <div class="card-header">
+            <span class="card-number">03</span>
+            <h2>Project Title</h2>
+        </div>
         <p>A short description of what this demo does, the problem it solves, and the technologies used to build it.</p>
-        <span class="tag">Coming soon</span>
+        <div class="tag-row">
+            <span class="tag">Coming soon</span>
+        </div>
     </div>
 
     <div class="card">
-        <p class="card-number">04</p>
-        <h2>Project Title</h2>
+        <div class="card-header">
+            <span class="card-number">04</span>
+            <h2>Project Title</h2>
+        </div>
         <p>A short description of what this demo does, the problem it solves, and the technologies used to build it.</p>
-        <span class="tag">Coming soon</span>
+        <div class="tag-row">
+            <span class="tag">Coming soon</span>
+        </div>
     </div>
+
 </div>
 {% endblock %}
