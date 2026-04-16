@@ -4,28 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zac de Moor — Sales Engineer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="description" content="From medical writing to sales engineering. Builder of AI-powered tools and passionate about technical storytelling.">
     <meta property="og:title" content="Zac de Moor — Sales Engineer">
     <meta property="og:description" content="From medical writing to sales engineering. Builder of AI-powered tools and passionate about technical storytelling.">
     <meta property="og:image" content="https://zac-de-moor.onrender.com/static/zac.png">
     <meta property="og:url" content="https://zac-de-moor.onrender.com">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://zac-de-moor.onrender.com/static/zac.png">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
             --bg: #0d0d0d;
-            --bg-card: #141414;
+            --bg-card: #131313;
             --bg-card-hover: #181818;
-            --border: #222;
-            --border-hover: #333;
+            --border: #1e1e1e;
+            --border-mid: #2a2a2a;
             --text: #e8e8e8;
-            --muted: #555;
-            --muted-mid: #888;
+            --muted: #4a4a4a;
+            --muted-mid: #7a7a7a;
             --accent: #7c6af7;
-            --accent-dim: rgba(124, 106, 247, 0.08);
+            --accent-dim: rgba(124, 106, 247, 0.1);
         }
 
         html { scroll-behavior: smooth; }
@@ -36,255 +36,362 @@
             font-family: 'Inter', sans-serif;
             font-weight: 300;
             line-height: 1.7;
-            min-height: 100vh;
         }
 
-        /* ── Layout ───────────────────────────── */
-        .layout {
-            display: flex;
-            align-items: flex-start;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 60px;
-            gap: 80px;
-        }
-
-        /* ── Sidebar ──────────────────────────── */
-        .sidebar {
-            width: 290px;
-            flex-shrink: 0;
+        /* ── Top nav ─────────────────────────────── */
+        .top-nav {
             position: sticky;
             top: 0;
-            height: 100vh;
+            z-index: 100;
+            background: rgba(13, 13, 13, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
             display: flex;
-            flex-direction: column;
-            padding: 96px 0;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            height: 60px;
         }
 
-        .sidebar-top { flex: 1; }
-
-        .sidebar-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.4rem;
-            font-weight: 600;
+        .nav-brand {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 500;
             color: var(--text);
             text-decoration: none;
-            display: block;
-            line-height: 1.15;
-            margin-bottom: 10px;
-            letter-spacing: -0.01em;
+            letter-spacing: 0.03em;
         }
 
-        .sidebar-title {
-            font-size: 0.95rem;
-            color: var(--text);
-            font-weight: 400;
-            margin-bottom: 18px;
-        }
-
-        .sidebar-tagline {
-            font-size: 0.82rem;
-            color: var(--muted);
-            line-height: 1.65;
-            max-width: 210px;
-            margin-bottom: 52px;
-        }
-
-        .sidebar-nav {
+        .nav-links {
+            display: flex;
             list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
+            gap: 36px;
         }
 
-        .sidebar-nav a {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 0.72rem;
-            letter-spacing: 0.13em;
+        .nav-links a {
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            padding: 6px 0;
+            color: var(--muted-mid);
+            text-decoration: none;
             transition: color 0.2s;
+            padding-bottom: 2px;
+            border-bottom: 1px solid transparent;
         }
 
-        .sidebar-nav a::before {
-            content: '';
-            display: block;
-            height: 1px;
-            width: 24px;
-            background: currentColor;
-            transition: width 0.25s ease;
-            flex-shrink: 0;
-        }
-
-        .sidebar-nav a:hover,
-        .sidebar-nav a.active {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--text);
+            border-bottom-color: var(--accent);
         }
 
-        .sidebar-nav a.active::before,
-        .sidebar-nav a:hover::before {
-            width: 52px;
-        }
-
-        .sidebar-social {
+        .nav-social {
             display: flex;
-            gap: 18px;
+            gap: 16px;
             align-items: center;
         }
 
-        .sidebar-social a {
-            color: var(--muted);
-            text-decoration: none;
+        .nav-social a {
+            color: var(--muted-mid);
             display: flex;
             transition: color 0.2s;
+            text-decoration: none;
         }
 
-        .sidebar-social a:hover { color: var(--text); }
+        .nav-social a:hover { color: var(--text); }
 
-        /* ── Content ──────────────────────────── */
-        .content {
-            flex: 1;
-            min-width: 0;
-            padding: 96px 0;
-        }
-
-        /* ── Sections ─────────────────────────── */
-        section {
-            padding-bottom: 120px;
-        }
-
-        section + section {
-            padding-top: 0;
+        /* ── Shared section styles ──────────────── */
+        .section-inner {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 100px 60px;
         }
 
         .section-label {
             display: block;
             font-size: 0.68rem;
-            letter-spacing: 0.18em;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
             color: var(--muted);
-            margin-bottom: 36px;
+            margin-bottom: 20px;
         }
 
-        /* ── Story section ────────────────────── */
-        .story-intro {
-            margin-bottom: 52px;
-        }
-
-        .story-intro h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+        .section-heading {
+            font-size: 1.9rem;
             font-weight: 600;
-            line-height: 1.25;
             color: var(--text);
-            margin-bottom: 12px;
+            line-height: 1.25;
+            margin-bottom: 52px;
+            letter-spacing: -0.02em;
         }
 
-        .story-intro .lead {
-            font-size: 0.88rem;
-            color: var(--muted);
+        /* ── Hero ───────────────────────────────── */
+        #hero {
+            border-bottom: 1px solid var(--border);
         }
 
-        .photo {
+        #hero .section-inner {
+            text-align: center;
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+
+        .hero-headline {
+            font-size: clamp(2rem, 4.5vw, 3.4rem);
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--text);
+            letter-spacing: -0.03em;
+            margin-bottom: 44px;
+        }
+
+        .hero-headline .accent {
+            color: var(--accent);
+        }
+
+        .hero-photo {
             display: block;
-            width: 100px;
-            height: 100px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             object-fit: cover;
             object-position: top;
-            border: 1px solid var(--border);
-            margin-bottom: 40px;
+            border: 2px solid var(--border-mid);
+            margin: 0 auto 44px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 36px;
+        }
+
+        .stat-box {
+            border: 1px solid var(--border-mid);
+            border-radius: 10px;
+            padding: 20px 28px;
+            text-align: center;
+            min-width: 155px;
+            background: var(--bg-card);
+        }
+
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-desc {
+            font-size: 0.72rem;
+            color: var(--muted-mid);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            line-height: 1.4;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .skill-tag {
+            padding: 5px 14px;
+            border: 1px solid var(--border-mid);
+            border-radius: 20px;
+            font-size: 0.72rem;
+            color: var(--muted-mid);
+            letter-spacing: 0.06em;
+        }
+
+        /* ── My Story ───────────────────────────── */
+        #story {
+            border-bottom: 1px solid var(--border);
         }
 
         .bio {
-            font-size: 0.92rem;
+            font-size: 0.93rem;
             color: var(--muted-mid);
             line-height: 1.9;
         }
 
-        .bio p + p { margin-top: 24px; }
+        .bio p + p { margin-top: 22px; }
 
         .highlight {
             color: var(--text);
             font-weight: 400;
         }
 
-        .stats {
-            display: flex;
-            gap: 40px;
-            margin-top: 52px;
-            padding-top: 40px;
-            border-top: 1px solid var(--border);
-            flex-wrap: wrap;
+        /* ── Testimonials ───────────────────────── */
+        #testimonials {
+            border-bottom: 1px solid var(--border);
         }
 
-        .stat { display: flex; flex-direction: column; gap: 6px; }
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
 
-        .stat-number {
+        .testimonial-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 32px;
+            transition: border-color 0.2s;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--border-mid);
+        }
+
+        .quote-mark {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: 3rem;
             color: var(--accent);
             line-height: 1;
-        }
-
-        .stat-label {
-            font-size: 0.72rem;
-            color: var(--muted);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
-
-        /* ── Projects section ─────────────────── */
-        .projects-intro {
-            margin-bottom: 52px;
-        }
-
-        .projects-intro h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 600;
-            line-height: 1.25;
-            color: var(--text);
             margin-bottom: 12px;
+            display: block;
         }
 
-        .projects-intro .subtitle {
+        .testimonial-text {
             font-size: 0.88rem;
-            color: var(--muted);
-            line-height: 1.7;
+            color: var(--muted-mid);
+            line-height: 1.8;
+            margin-bottom: 24px;
+            font-style: italic;
         }
 
-        .card-list {
+        .testimonial-author {
             display: flex;
             flex-direction: column;
             gap: 2px;
         }
 
-        .card {
-            background: transparent;
+        .author-name {
+            font-size: 0.82rem;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .author-title {
+            font-size: 0.75rem;
+            color: var(--muted);
+            letter-spacing: 0.04em;
+        }
+
+        /* ── Blog ───────────────────────────────── */
+        #blog {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .blog-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .blog-card {
+            display: block;
+            text-decoration: none;
             border: 1px solid transparent;
             border-radius: 8px;
-            padding: 28px 24px;
+            padding: 24px 20px;
             transition: background 0.2s, border-color 0.2s;
         }
 
-        .card:hover {
+        .blog-card:hover {
             background: var(--bg-card-hover);
-            border-color: var(--border-hover);
+            border-color: var(--border-mid);
         }
 
-        .card-header {
+        .blog-card-inner {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+        }
+
+        .blog-num {
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            flex-shrink: 0;
+            min-width: 22px;
+        }
+
+        .blog-content { flex: 1; }
+
+        .blog-title {
+            font-size: 0.93rem;
+            font-weight: 500;
+            color: var(--text);
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .blog-category {
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .blog-status {
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding: 2px 8px;
+            border: 1px solid var(--border-mid);
+            border-radius: 20px;
+        }
+
+        /* ── Projects ───────────────────────────── */
+        #projects .section-inner {
+            padding-bottom: 120px;
+        }
+
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .project-card {
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            padding: 28px 20px;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .project-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-mid);
+        }
+
+        .project-header {
             display: flex;
             align-items: baseline;
             gap: 16px;
             margin-bottom: 10px;
         }
 
-        .card-number {
+        .project-num {
             font-size: 0.68rem;
             letter-spacing: 0.14em;
             text-transform: uppercase;
@@ -292,39 +399,38 @@
             flex-shrink: 0;
         }
 
-        .card h3 {
-            font-size: 0.95rem;
+        .project-card h3 {
+            font-size: 0.93rem;
             font-weight: 500;
             color: var(--text);
         }
 
-        .card p {
+        .project-card p {
             font-size: 0.86rem;
             color: var(--muted-mid);
             line-height: 1.75;
-            margin-left: 44px;
+            margin-left: 38px;
         }
 
-        .card video {
+        .project-card video {
             display: block;
             width: 100%;
             border-radius: 6px;
-            margin-top: 16px;
-            border: 1px solid var(--border);
+            margin-top: 14px;
+            border: 1px solid var(--border-mid);
         }
 
         .tag-row {
             display: flex;
-            flex-wrap: wrap;
             gap: 8px;
-            margin-top: 14px;
-            margin-left: 44px;
+            margin-top: 12px;
+            margin-left: 38px;
+            flex-wrap: wrap;
         }
 
         .tag {
-            display: inline-block;
             padding: 3px 10px;
-            border: 1px solid var(--border);
+            border: 1px solid var(--border-mid);
             border-radius: 20px;
             font-size: 0.68rem;
             color: var(--muted);
@@ -332,174 +438,276 @@
             text-transform: uppercase;
         }
 
-        /* ── Footer ───────────────────────────── */
+        /* ── Footer ─────────────────────────────── */
         .page-footer {
-            padding-top: 36px;
+            text-align: center;
+            padding: 36px 60px;
             border-top: 1px solid var(--border);
             font-size: 0.78rem;
             color: var(--muted);
         }
 
-        /* ── Responsive ───────────────────────── */
-        @media (max-width: 800px) {
-            .layout { flex-direction: column; padding: 0 28px; gap: 0; }
-            .sidebar { position: static; height: auto; width: 100%; padding: 48px 0 32px; }
-            .sidebar-tagline { max-width: 100%; }
-            .content { padding: 48px 0; }
+        /* ── Responsive ─────────────────────────── */
+        @media (max-width: 700px) {
+            .top-nav { padding: 0 24px; }
+            .nav-links { display: none; }
+            .section-inner { padding: 60px 24px; }
+            .hero-headline { font-size: 1.9rem; }
+            .testimonial-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            * { transition: none !important; }
         }
     </style>
 </head>
 <body>
-<div class="layout">
 
-    <!-- ── Sidebar ── -->
-    <aside class="sidebar">
-        <div class="sidebar-top">
-            <a href="#story" class="sidebar-name">Zac<br>de Moor</a>
-            <p class="sidebar-title">Sales Engineer</p>
-            <p class="sidebar-tagline">Technical storytelling at the intersection of people and product.</p>
-            <nav>
-                <ul class="sidebar-nav">
-                    <li><a href="#story">My Story</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                </ul>
-            </nav>
-        </div>
-        <div class="sidebar-social">
-            <a href="https://github.com/zdmoor7" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                </svg>
-            </a>
-            <a href="https://www.linkedin.com/in/zac-de-moor-743189251/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                    <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
-                </svg>
-            </a>
-            <a href="mailto:zdmoor7@gmail.com" aria-label="Email">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                    <polyline points="22,6 12,13 2,6"/>
-                </svg>
-            </a>
-        </div>
-    </aside>
-
-    <!-- ── Scrollable content ── -->
-    <div class="content">
-
-        <!-- My Story -->
-        <section id="story">
-            <span class="section-label">01 — My Story</span>
-            <div class="story-intro">
-                <h2>From Medical Writing<br>to Sales Engineering</h2>
-                <p class="lead">Career Transition</p>
-            </div>
-            <img src="/static/zac.png" alt="Zac de Moor" class="photo">
-            <div class="bio">
-                <p>
-                    I spent several years as a <span class="highlight">medical writer for large enterprise pharma companies</span>,
-                    shaping content strategy and go-to-market paths for new drugs and treatments. The role involved
-                    constant collaboration with subject matter experts and senior stakeholders—and I loved that side of it.
-                </p>
-                <p>
-                    But over time I realized the work had become too solitary, and I wanted something that sat at
-                    <span class="highlight">the intersection of interpersonal communication and technical storytelling</span>.
-                </p>
-                <p>
-                    Sales Engineering is that role. In the months since deciding to make the transition, I've networked with
-                    <span class="highlight">over 40 Sales Engineers</span>, completed a
-                    <span class="highlight">Demo2Win bootcamp</span>, and built a suite of
-                    <span class="highlight">AI-powered tools from scratch</span>—including this site.
-                    I'm beyond excited to bring these skills into a real role.
-                </p>
-            </div>
-            <div class="stats">
-                <div class="stat">
-                    <span class="stat-number">40+</span>
-                    <span class="stat-label">SE conversations</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">1</span>
-                    <span class="stat-label">Demo2Win bootcamp</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">∞</span>
-                    <span class="stat-label">Curiosity</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects -->
-        <section id="projects">
-            <span class="section-label">02 — Projects</span>
-            <div class="projects-intro">
-                <h2>Demos &amp; Projects</h2>
-                <p class="subtitle">A selection of tools, demos, and builds from my transition into Sales Engineering.</p>
-            </div>
-            <div class="card-list">
-
-                <div class="card">
-                    <div class="card-header">
-                        <span class="card-number">01</span>
-                        <h3>Yoodli Full Demo</h3>
-                    </div>
-                    <video controls>
-                        <source src="/static/Yoodli full demo.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <span class="card-number">02</span>
-                        <h3>Project Title</h3>
-                    </div>
-                    <p>A short description of what this demo does, the problem it solves, and the technologies used to build it.</p>
-                    <div class="tag-row"><span class="tag">Coming soon</span></div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <span class="card-number">03</span>
-                        <h3>Project Title</h3>
-                    </div>
-                    <p>A short description of what this demo does, the problem it solves, and the technologies used to build it.</p>
-                    <div class="tag-row"><span class="tag">Coming soon</span></div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <span class="card-number">04</span>
-                        <h3>Project Title</h3>
-                    </div>
-                    <p>A short description of what this demo does, the problem it solves, and the technologies used to build it.</p>
-                    <div class="tag-row"><span class="tag">Coming soon</span></div>
-                </div>
-
-            </div>
-        </section>
-
-        <footer class="page-footer">&copy; 2026 Zac de Moor</footer>
+<!-- ── Top nav ── -->
+<nav class="top-nav">
+    <a href="/" class="nav-brand">zacdemoor.com</a>
+    <ul class="nav-links">
+        <li><a href="#story">My Story</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#projects">Projects</a></li>
+    </ul>
+    <div class="nav-social">
+        <a href="https://github.com/zdmoor7" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+            </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/zac-de-moor-743189251/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+            </svg>
+        </a>
+        <a href="mailto:zdmoor7@gmail.com" aria-label="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+            </svg>
+        </a>
     </div>
+</nav>
 
-</div>
+<!-- ── Hero ── -->
+<section id="hero">
+    <div class="section-inner">
+        <h1 class="hero-headline">
+            zac is a <span class="accent">medical writer</span><br>
+            making his move into<br>
+            <span class="accent">sales engineering</span>
+        </h1>
+        <img src="/static/zac.png" alt="Zac de Moor" class="hero-photo" loading="eager">
+        <div class="stat-row">
+            <div class="stat-box">
+                <div class="stat-num">40+</div>
+                <div class="stat-desc">SE conversations</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num">1</div>
+                <div class="stat-desc">Demo2Win bootcamp</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num">∞</div>
+                <div class="stat-desc">Curiosity</div>
+            </div>
+        </div>
+        <div class="skill-tags">
+            <span class="skill-tag">Technical Writing</span>
+            <span class="skill-tag">Demo Skills</span>
+            <span class="skill-tag">AI Tools</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Medical Knowledge</span>
+            <span class="skill-tag">Client Communication</span>
+        </div>
+    </div>
+</section>
+
+<!-- ── My Story ── -->
+<section id="story">
+    <div class="section-inner">
+        <span class="section-label">01 — My Story</span>
+        <h2 class="section-heading">From Medical Writing<br>to Sales Engineering</h2>
+        <div class="bio">
+            <p>
+                I spent several years as a <span class="highlight">medical writer for large enterprise pharma companies</span>,
+                shaping content strategy and go-to-market paths for new drugs and treatments. The role involved
+                constant collaboration with subject matter experts and senior stakeholders—and I loved that side of it.
+            </p>
+            <p>
+                But over time I realized the work had become too solitary, and I wanted something that sat at
+                <span class="highlight">the intersection of interpersonal communication and technical storytelling</span>.
+            </p>
+            <p>
+                Sales Engineering is that role. In the months since deciding to make the transition, I've networked with
+                <span class="highlight">over 40 Sales Engineers</span>, completed a
+                <span class="highlight">Demo2Win bootcamp</span>, and built a suite of
+                <span class="highlight">AI-powered tools from scratch</span>—including this site.
+                I'm beyond excited to bring these skills into a real role.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ── Testimonials ── -->
+<section id="testimonials">
+    <div class="section-inner">
+        <span class="section-label">02 — Testimonials</span>
+        <h2 class="section-heading">What people say</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <span class="quote-mark">"</span>
+                <p class="testimonial-text">Placeholder — add a quote from one of your 40 SE conversations here.</p>
+                <div class="testimonial-author">
+                    <span class="author-name">Name</span>
+                    <span class="author-title">Title, Company</span>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <span class="quote-mark">"</span>
+                <p class="testimonial-text">Placeholder — add a quote from one of your 40 SE conversations here.</p>
+                <div class="testimonial-author">
+                    <span class="author-name">Name</span>
+                    <span class="author-title">Title, Company</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Blog ── -->
+<section id="blog">
+    <div class="section-inner">
+        <span class="section-label">03 — Writing</span>
+        <h2 class="section-heading">Things I've written</h2>
+        <div class="blog-list">
+
+            <a href="/blog/40-se-conversations" class="blog-card">
+                <div class="blog-card-inner">
+                    <span class="blog-num">01</span>
+                    <div class="blog-content">
+                        <p class="blog-title">What 40 SE conversations taught me about the role</p>
+                        <div class="blog-meta">
+                            <span class="blog-category">Writing</span>
+                            <span class="blog-status">Soon</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/blog/medical-writing-storytelling" class="blog-card">
+                <div class="blog-card-inner">
+                    <span class="blog-num">02</span>
+                    <div class="blog-content">
+                        <p class="blog-title">How medical writing made me a better technical storyteller</p>
+                        <div class="blog-meta">
+                            <span class="blog-category">Writing</span>
+                            <span class="blog-status">Soon</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/blog/demo2win-takeaways" class="blog-card">
+                <div class="blog-card-inner">
+                    <span class="blog-num">03</span>
+                    <div class="blog-content">
+                        <p class="blog-title">Demo2Win: what I took away and what I'd add</p>
+                        <div class="blog-meta">
+                            <span class="blog-category">Writing</span>
+                            <span class="blog-status">Soon</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/blog/building-portfolio-non-engineer" class="blog-card">
+                <div class="blog-card-inner">
+                    <span class="blog-num">04</span>
+                    <div class="blog-content">
+                        <p class="blog-title">Building a portfolio site from scratch as a non-engineer</p>
+                        <div class="blog-meta">
+                            <span class="blog-category">Writing</span>
+                            <span class="blog-status">Soon</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<!-- ── Projects ── -->
+<section id="projects">
+    <div class="section-inner">
+        <span class="section-label">04 — Projects</span>
+        <h2 class="section-heading">Demos &amp; Projects</h2>
+        <div class="project-list">
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-num">01</span>
+                    <h3>Yoodli Full Demo</h3>
+                </div>
+                <video controls>
+                    <source src="/static/Yoodli full demo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-num">02</span>
+                    <h3>Project Title</h3>
+                </div>
+                <p>A short description of what this demo does, the problem it solves, and the technologies used to build it.</p>
+                <div class="tag-row"><span class="tag">Coming soon</span></div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-num">03</span>
+                    <h3>Project Title</h3>
+                </div>
+                <p>A short description of what this demo does, the problem it solves, and the technologies used to build it.</p>
+                <div class="tag-row"><span class="tag">Coming soon</span></div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-num">04</span>
+                    <h3>Project Title</h3>
+                </div>
+                <p>A short description of what this demo does, the problem it solves, and the technologies used to build it.</p>
+                <div class="tag-row"><span class="tag">Coming soon</span></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<footer class="page-footer">&copy; 2026 Zac de Moor</footer>
 
 <script>
-    // Highlight active nav section on scroll
+    // Active nav highlight on scroll
     const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.sidebar-nav a');
+    const navLinks = document.querySelectorAll('.nav-links a');
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 navLinks.forEach(a => a.classList.remove('active'));
-                const active = document.querySelector(`.sidebar-nav a[href="#${entry.target.id}"]`);
+                const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
                 if (active) active.classList.add('active');
             }
         });
-    }, { rootMargin: '-20% 0px -70% 0px' });
+    }, { rootMargin: '-15% 0px -75% 0px' });
 
     sections.forEach(s => observer.observe(s));
 </script>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }} — Zac de Moor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="description" content="{{ post.title }}">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0d0d0d;
+            --border: #1e1e1e;
+            --border-mid: #2a2a2a;
+            --text: #e8e8e8;
+            --muted: #4a4a4a;
+            --muted-mid: #7a7a7a;
+            --accent: #7c6af7;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--muted-mid);
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* ── Nav ── */
+        .top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(13, 13, 13, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            height: 60px;
+        }
+
+        .nav-brand {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted-mid);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-back:hover { color: var(--text); }
+
+        /* ── Post container ── */
+        .post-wrap {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 80px 60px 120px;
+        }
+
+        .post-category {
+            display: inline-block;
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .post-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.25;
+            letter-spacing: -0.01em;
+            margin-bottom: 48px;
+        }
+
+        /* ── Coming soon state ── */
+        .coming-soon {
+            border: 1px solid var(--border-mid);
+            border-radius: 12px;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .coming-soon-label {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .coming-soon h2 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .coming-soon p {
+            font-size: 0.88rem;
+            color: var(--muted-mid);
+            max-width: 380px;
+            margin: 0 auto;
+            line-height: 1.75;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 40px;
+            font-size: 0.78rem;
+            color: var(--muted-mid);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        @media (max-width: 700px) {
+            .top-nav { padding: 0 24px; }
+            .post-wrap { padding: 60px 24px 80px; }
+            .post-title { font-size: 1.7rem; }
+            .coming-soon { padding: 40px 24px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="top-nav">
+    <a href="/" class="nav-brand">zacdemoor.com</a>
+    <a href="/#blog" class="nav-back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+        </svg>
+        All posts
+    </a>
+</nav>
+
+<div class="post-wrap">
+    <span class="post-category">{{ post.category }}</span>
+    <h1 class="post-title">{{ post.title }}</h1>
+
+    <div class="coming-soon">
+        <span class="coming-soon-label">Coming Soon</span>
+        <h2>This post is in progress</h2>
+        <p>Check back soon — this piece is being written. Subscribe via <a href="mailto:zdmoor7@gmail.com" style="color: var(--accent); text-decoration: none;">email</a> if you'd like to know when it's published.</p>
+    </div>
+
+    <a href="/#blog" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+        </svg>
+        Back to all posts
+    </a>
+</div>
+
+</body>
+</html>
