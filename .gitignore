@@ -3,3 +3,7 @@ chroma_db/
 insights.db
 __pycache__/
 *.pyc
+*.mp4
+Untitled
+zacs_photo.py
+templates:index.html.py
