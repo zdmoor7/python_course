@@ -24,7 +24,7 @@ class AnthropicClient:
             "content-type": "application/json"
         }
 
-    def send_message(self, message, retries=3):
+    def send_message(self, message, system=None, retries=3):        
         body = {
             "model": self.model,
             "max_tokens": 1024,
@@ -32,6 +32,8 @@ class AnthropicClient:
                 {"role": "user", "content": message}
             ]
         }
+        if system:
+            body["system"] = system
         for attempt in range(retries):
             response = requests.post(
                 "https://api.anthropic.com/v1/messages",
